@@ -55,21 +55,6 @@ int main(){
 		vetorBCP = lerDados(numRegistros);
 		
 		if (vetorBCP){
-			
-			/*
-			BCP algumBCP;
-			char virgula;
-			
-			for(int i = 0; i < numRegistros; i++){	
-				getline(entrada,algumBCP.nome,',');
-				entrada >> algumBCP.idade >> virgula;
-				getline(entrada,algumBCP.nacionalidade,',');
-				entrada >> algumBCP.altura >> virgula;
-				entrada >> algumBCP.peso >> virgula;
-				getline(entrada,algumBCP.modalidade);
-				vetorBCP[i] = algumBCP;
-			}
-			*/
 
 			for(int i = 0; i < numRegistros; i++){
 				vetorBCP[i].imprime();
