@@ -49,7 +49,7 @@ BCP* lerDados(int& numRegistros, int& capacidade){
 		if (numRegistros >= capacidade){
 			capacidade += 20;
 			BCP *novo = new BCP[capacidade];
-			memcpy(novo, vetorBCP, numRegistros*sizeof(BCP))
+			memcpy(novo, vetorBCP, numRegistros*sizeof(BCP));
 			/*for(int i = 0; i < numRegistros; i++) {
 				novo[i] = vetorBCP[i];			
 			}*/

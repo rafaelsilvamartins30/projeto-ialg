@@ -1,0 +1,101 @@
+nome,idade,nacionalidade,altura,peso,modalidade
+Lebron James,39,Americano,2.06,113,Basquete
+Stephen Curry,36,Americano,1.98,86,Basquete
+Lionel Messi,37,Argentino,1.65,70,Futebol
+Neymar JR,32,Brasileiro,1.70,70,Futebol
+Cristiano Ronaldo,38,Portugues,1.87,83,Futebol
+Usain Bolt,37,Jamaicano,1.95,94,Atletismo
+Michael Phelps,39,Americano,1.93,88,Natação
+Simone Biles,27,Americana,1.42,47,Ginástica
+Roger Federer,42,Suiço,1.85,85,Tênis
+Serena Williams,42,Americana,1.75,70,Tênis
+Rafael Nadal,38,Espanhol,1.85,85,Tênis
+Novak Djokovic,37,Sérvio,1.88,77,Tênis
+Tiger Woods,48,Americano,1.85,84,Golfe
+Kobe Bryant,41,Americano,1.98,96,Basquete
+Diego Maradona,60,Argentino,1.65,70,Futebol
+Pelé,82,Brasileiro,1.73,70,Futebol
+Tom Brady,46,Americano,1.93,102,Futebol Americano
+Lewis Hamilton,39,Britânico,1.74,68,Fórmula 1
+Ayrton Senna,60,Brasileiro,1.80,75,Fórmula 1
+Shaquille O'Neal,52,Americano,2.16,147,Basquete
+Michael Jordan,60,Americano,1.98,98,Basquete
+Magic Johnson,64,Americano,2.06,100,Basquete
+Larry Bird,67,Americano,2.06,100,Basquete
+Carl Lewis,63,Americano,1.88,80,Atletismo
+Zinedine Zidane,52,Francês,1.85,80,Futebol
+Ronaldinho Gaúcho,44,Brasileiro,1.81,80,Futebol
+Marta Silva,38,Brasileira,1.63,56,Futebol
+Megan Rapinoe,39,Americana,1.70,60,Futebol
+Alex Morgan,35,Americana,1.70,62,Futebol
+Manny Pacquiao,45,Filipino,1.68,66,Boxe
+Floyd Mayweather,47,Americano,1.73,68,Boxe
+Conor McGregor,35,Irlandês,1.75,70,MMA
+Ronda Rousey,37,Americana,1.70,61,MMA
+Khabib Nurmagomedov,35,Russo,1.78,70,MMA
+Georges St-Pierre,43,Canadense,1.78,77,MMA
+Jon Jones,36,Americano,1.93,93,MMA
+Anderson Silva,49,Brasileiro,1.88,84,MMA
+Valentina Shevchenko,36,Quirguistanesa,1.65,57,MMA
+Amanda Nunes,36,Brasileira,1.73,66,MMA
+Danica Patrick,42,Americana,1.57,45,Automobilismo
+Sebastian Vettel,37,Alemão,1.75,66,Fórmula 1
+Fernando Alonso,43,Espanhol,1.71,68,Fórmula 1
+Max Verstappen,26,Holandês,1.81,72,Fórmula 1
+Kimi Raikkonen,44,Finlandês,1.75,70,Fórmula 1
+Guga Kuerten,47,Brasileiro,1.90,76,Tênis
+Dominic Thiem,31,Austriaco,1.85,79,Tênis
+Ashleigh Barty,28,Australiana,1.66,62,Tênis
+Naomi Osaka,26,Japonesa,1.80,69,Tênis
+Simona Halep,32,Romena,1.68,60,Tênis
+Venus Williams,43,Americana,1.85,74,Tênis
+Allyson Felix,38,Americana,1.68,55,Atletismo
+Caster Semenya,33,Sul-Africana,1.78,70,Atletismo
+Mo Farah,41,Britânico,1.75,58,Atletismo
+Eliud Kipchoge,39,Queniano,1.67,52,Atletismo
+Haile Gebrselassie,51,Etiopiano,1.65,56,Atletismo
+Yelena Isinbayeva,42,Russa,1.74,65,Atletismo
+Sergey Bubka,61,Ucraniano,1.83,80,Atletismo
+Mariusz Pudzianowski,46,Polonês,1.86,142,Strongman
+Hafthor Bjornsson,35,Islandês,2.06,156,Strongman
+Eddie Hall,36,Britânico,1.90,164,Strongman
+Brian Shaw,42,Americano,2.03,195,Strongman
+Arnold Schwarzenegger,76,Austríaco,1.88,107,Fisiculturismo
+Phil Heath,44,Americano,1.75,113,Fisiculturismo
+Jay Cutler,50,Americano,1.78,122,Fisiculturismo
+Ronnie Coleman,59,Americano,1.80,135,Fisiculturismo
+Kai Greene,49,Americano,1.73,110,Fisiculturismo
+Kelly Slater,52,Americano,1.75,73,Surfe
+Gabriel Medina,30,Brasileiro,1.80,75,Surfe
+Ítalo Ferreira,30,Brasileiro,1.68,70,Surfe
+Carissa Moore,32,Americana,1.70,65,Surfe
+Stephanie Gilmore,36,Australiana,1.80,69,Surfe
+Michael Schumacher,55,Alemão,1.74,74,Fórmula 1
+Alain Prost,68,Francês,1.67,64,Fórmula 1
+Mark Cavendish,39,Britânico,1.75,70,Ciclismo
+Peter Sagan,34,Eslovaco,1.84,73,Ciclismo
+Chris Froome,38,Britânico,1.86,68,Ciclismo
+Egan Bernal,27,Colombiano,1.75,60,Ciclismo
+Tadej Pogacar,25,Esloveno,1.76,66,Ciclismo
+Primoz Roglic,34,Esloveno,1.77,65,Ciclismo
+Andy Murray,37,Britânico,1.91,82,Tênis
+Juan Martin del Potro,36,Argentino,1.98,97,Tênis
+Clyde Drexler,61,Americano,1.98,102,Basquete
+Charles Barkley,60,Americano,1.98,114,Basquete
+Dennis Rodman,63,Americano,2.01,102,Basquete
+Karl Malone,61,Americano,2.06,120,Basquete
+Patrick Ewing,61,Americano,2.18,113,Basquete
+Derrick Rose,35,Americano,1.98,93,Basquete
+Giannis Antetokounmpo,29,Grego,2.11,110,Basquete
+Kawhi Leonard,32,Americano,2.01,102,Basquete
+James Harden,34,Americano,1.96,100,Basquete
+Kyrie Irving,32,Americano,1.91,88,Basquete
+Damian Lillard,34,Americano,1.93,91,Basquete
+Kevin Durant,36,Americano,2.08,109,Basquete
+Zlatan Ibrahimović,43,Sueco,1.95,95,Futebol
+Kylian Mbappé,25,Francês,1.78,73,Futebol
+Virgil van Dijk,33,Holandês,1.93,92,Futebol
+Mohamed Salah,32,Egípcio,1.75,71,Futebol
+Gareth Bale,35,Galês,1.83,74,Futebol
+Paul Pogba,31,Francês,1.91,84,Futebol
+Eden Hazard,33,Belga,1.75,80,Futebol
