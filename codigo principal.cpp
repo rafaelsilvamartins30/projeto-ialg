@@ -12,14 +12,15 @@ struct BCP{
 	float altura;
 	int peso;
 	char modalidade [20];
-	void imprime(){
-	cout << nome << " "
-		 << idade << " "
-		 << nacionalidade << " "
-		 << altura << " "
-		 << peso << " "
-		 << modalidade << endl;	
-	}
+	void imprime() {
+        cout << "-----------------------------------------" << endl
+			 << "Nome do Jogador: " << nome << endl
+             << "Idade do Jogador: " << idade << " Anos" << endl
+             << "Nacionalidade do Jogador: " << nacionalidade << endl
+             << "Altura do Jogador: " << altura << " M" << endl
+             << "Peso do Jogador: " << peso << " KG" << endl
+             << "Modalidade do Jogador: " << modalidade << endl;
+    }
 };
 bool lerumaunicalinha(ifstream& entrada, BCP& algumBCP){
 	char virgula;
