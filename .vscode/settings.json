@@ -5,6 +5,7 @@
         "iomanip": "cpp",
         "string_view": "cpp",
         "sstream": "cpp",
-        "locale": "cpp"
+        "locale": "cpp",
+        "istream": "cpp"
     }
 }
