@@ -180,12 +180,12 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
                 cout << "| Digite os novos dados do jogador (nome, idade, nacionalidade, altura, peso, modalidade): |" << endl;
                 cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
                 cout << "_____________________________________________" << endl;
-                cout << " Nome: "; cin.getline(lista[i].nome, 30); // Nome
-                cout << " Idade: "; cin >> lista[i].idade; cin.ignore(); // Idade
-                cout << " Nacionalidade: "; cin.getline(lista[i].nacionalidade, 20); // Nacionalidade
-                cout << " Altura: "; cin >> lista[i].altura; // Altura
-                cout << " Peso: "; cin >> lista[i].peso; cin.ignore(); // Peso
-                cout << " Modalidade: "; cin.getline(lista[i].modalidade, 20); // Modalidade
+                cout << " Nome: "; cin.getline(lista[i].nome, 30); 
+                cout << " Idade: "; cin >> lista[i].idade; cin.ignore(); 
+                cout << " Nacionalidade: "; cin.getline(lista[i].nacionalidade, 20);
+                cout << " Altura: "; cin >> lista[i].altura; 
+                cout << " Peso: "; cin >> lista[i].peso; cin.ignore();
+                cout << " Modalidade: "; cin.getline(lista[i].modalidade, 20); 
                 cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl;
                 cout << " ______________________________ " << endl;
                 cout << "| Dados alterados com sucesso! |" << endl;
@@ -243,12 +243,12 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << "| Digite os dados do novo jogador (nome, idade, nacionalidade, altura, peso, modalidade): |" << endl;
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cout << "_____________________________________________" << endl;
-        cout << " Nome: "; cin.getline(lista[numRegistros].nome, 30); // Nome
-        cout << " Idade: "; cin >> lista[numRegistros].idade; cin.ignore(); // Idade
-        cout << " Nacionalidade: "; cin.getline(lista[numRegistros].nacionalidade, 20); // Nacionalidade
-        cout << " Altura: "; cin >> lista[numRegistros].altura; // Altura
-        cout << " Peso: "; cin >> lista[numRegistros].peso; cin.ignore(); // Peso
-        cout << " Modalidade: "; cin.getline(lista[numRegistros].modalidade, 20); // Modalidade
+        cout << " Nome: "; cin.getline(lista[numRegistros].nome, 30); 
+        cout << " Idade: "; cin >> lista[numRegistros].idade; cin.ignore(); 
+        cout << " Nacionalidade: "; cin.getline(lista[numRegistros].nacionalidade, 20); 
+        cout << " Altura: "; cin >> lista[numRegistros].altura; 
+        cout << " Peso: "; cin >> lista[numRegistros].peso; cin.ignore();
+        cout << " Modalidade: "; cin.getline(lista[numRegistros].modalidade, 20); 
         cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl;
         numRegistros++;
         cout << " _________________________________ " << endl;
@@ -387,7 +387,7 @@ int main() {
     string nomeArquivo;
     int numRegistros = 0, capacidade = 50;
     sportlist* lista = nullptr;
-    bool arquivoAberto = false; // Variável de controle
+    bool arquivoAberto = false;
 
     while (!arquivoAberto) {
         cout << " ___________________________________________________________________________ " << endl;
