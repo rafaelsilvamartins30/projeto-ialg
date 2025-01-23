@@ -5,33 +5,34 @@
 
 using namespace std;
 
-struct BCP{
+struct sportlist{
 	char nome[30];
 	int idade;
 	char nacionalidade[20];
 	float altura;
 	int peso;
 	char modalidade [20];
-	void imprime(){
-	cout << nome << " "
-		 << idade << " "
-		 << nacionalidade << " "
-		 << altura << " "
-		 << peso << " "
-		 << modalidade << endl;	
+	void imprime() {
+        cout << "-----------------------------------------" << endl
+			 << "Nome do Jogador: " << nome << endl
+             << "Idade do Jogador: " << idade << " Anos" << endl
+             << "Nacionalidade do Jogador: " << nacionalidade << endl
+             << "Altura do Jogador: " << altura << " M" << endl
+             << "Peso do Jogador: " << peso << " KG" << endl
+             << "Modalidade do Jogador: " << modalidade << endl;
 	}
 };
-bool lerumaunicalinha(ifstream& entrada, BCP& algumBCP){
+bool lerumaunicalinha(ifstream& entrada, sportlist& algumsportlist){
 	char virgula;
-	return entrada.getline(algumBCP.nome,30,',')
-			and (entrada >> algumBCP.idade >> virgula)
-			and (entrada.getline(algumBCP.nacionalidade,20,','))
-			and (entrada >> algumBCP.altura >> virgula)
-			and (entrada >> algumBCP.peso >> virgula)
-			and (entrada.getline(algumBCP.modalidade,20));
+	return entrada.getline(algumsportlist.nome,30,',')
+			and (entrada >> algumsportlist.idade >> virgula)
+			and (entrada.getline(algumsportlist.nacionalidade,20,','))
+			and (entrada >> algumsportlist.altura >> virgula)
+			and (entrada >> algumsportlist.peso >> virgula)
+			and (entrada.getline(algumsportlist.modalidade,20));
 }
 	
-BCP* lerDados(int& numRegistros, int& capacidade){
+sportlist* lerDados(int& numRegistros, int& capacidade){
 	ifstream entrada("arquivoentrada.csv");
 	if(not entrada){
 		return NULL;
@@ -40,51 +41,51 @@ BCP* lerDados(int& numRegistros, int& capacidade){
 	string descArquivo;
 	
 	getline(entrada,descArquivo);
-	BCP* vetorBCP = new BCP [capacidade];
+	sportlist* vetorsportlist = new sportlist [capacidade];
 	
-	BCP algumBCP;
+	sportlist algumsportlist;
 	
 			
-	while(lerumaunicalinha(entrada, algumBCP)){
+	while(lerumaunicalinha(entrada, algumsportlist)){
 		if (numRegistros >= capacidade){
 			capacidade += 20;
-			BCP *novo = new BCP[capacidade];
-			memcpy(novo, vetorBCP, numRegistros*sizeof(BCP));
-			delete [] vetorBCP;
-			vetorBCP = novo;
+			sportlist *novo = new sportlist[capacidade];
+			memcpy(novo, vetorsportlist, numRegistros*sizeof(sportlist));
+			delete [] vetorsportlist;
+			vetorsportlist = novo;
 		}
-		vetorBCP[numRegistros] = algumBCP;
+		vetorsportlist[numRegistros] = algumsportlist;
 		numRegistros ++;
 	}
-	return vetorBCP;
+	return vetorsportlist;
 }
 
 int main(){
-		BCP* vetorBCP;
+		sportlist* vetorsportlist;
 		int numRegistros = 0, capacidade = 50;
-		vetorBCP = lerDados(numRegistros, capacidade);
+		vetorsportlist = lerDados(numRegistros, capacidade);
 		
-		if (vetorBCP){
+		if (vetorsportlist){
 			ofstream gravaBinario ("arquivo.dat");
 			
 			for(int i = 0; i < numRegistros; i++){
-				vetorBCP[i].imprime();
+				vetorsportlist[i].imprime();
 			}
 			
-		gravaBinario.write((char *) vetorBCP, numRegistros*sizeof(BCP));
+		gravaBinario.write((char *) vetorsportlist, numRegistros*sizeof(sportlist));
 		
 		cout << "lendo binario" << endl << endl;	
 				
 		gravaBinario.close();
 		ifstream leBinario("arquivo.dat");
-		BCP umBCPQualquer;
+		sportlist umsportlistQualquer;
 		for ( int i=0; i<numRegistros; i++){
-			leBinario.read((char *) &umBCPQualquer, sizeof(BCP));	
-			umBCPQualquer.imprime();
+			leBinario.read((char *) &umsportlistQualquer, sizeof(sportlist));	
+			umsportlistQualquer.imprime();
 		}
 			
 				
-			delete [] vetorBCP;
+			delete [] vetorsportlist;
 		} else {
 			cout << "nao foi possivel ler o arquivo" << endl;
 		}

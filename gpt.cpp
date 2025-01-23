@@ -2,6 +2,12 @@
 #include <cstring>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
+#include <locale>
+#include <sstream>
+#include <string>
+
+
 
 using namespace std;
 
@@ -14,14 +20,28 @@ struct sportlist {
     char modalidade[20];
 
     void imprime() {
-        cout << "-----------------------------------------" << endl
-             << "Nome do Jogador: " << nome << endl
-             << "Idade do Jogador: " << idade << " Anos" << endl
-             << "Nacionalidade do Jogador: " << nacionalidade << endl
-             << "Altura do Jogador: " << altura << " M" << endl
-             << "Peso do Jogador: " << peso << " KG" << endl
-             << "Modalidade do Jogador: " << modalidade << endl;
+        const int largura = 45;
+        
+        // Convertendo a altura para string com precisão
+        stringstream ss;
+        ss << fixed << setprecision(2) << altura;
+        string alturaStr = ss.str()+ " M";
+        
+        // Convertendo a idade e peso para string
+        string idadeStr = to_string(idade) + " Anos";
+        string pesoStr = to_string(peso) + " KG";
+
+        // Calculando a largura dinamicamente para as strings
+        cout << " _____________________________________________" << endl;
+        cout << "| Nome do Jogador: " << left << setw(largura - 19) << nome << " |" << endl;
+        cout << "| Idade do Jogador: " << left << setw(largura - 20) << idadeStr << " |" << endl;
+        cout << "| Nacionalidade do Jogador: " << left << setw(largura - 28) << nacionalidade << " |" << endl;
+        cout << "| Altura do Jogador: " << left << setw(largura - 21) << alturaStr << " |" << endl;
+        cout << "| Peso do Jogador: " << left << setw(largura - 19) << pesoStr << " |" << endl;
+        cout << "| Modalidade do Jogador: " << left << setw(largura - 25) << modalidade << " |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl;
     }
+
 };
 
 void limparTela() {
@@ -42,29 +62,43 @@ bool lerUmaUnicaLinha(ifstream& entrada, sportlist& algumsportlist) {
            && (entrada.getline(algumsportlist.modalidade, 20));
 }
 
-sportlist* lerDados(int& numRegistros, int& capacidade) {
-    ifstream entrada("arquivoentrada.csv");
+sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidade) {
+    ifstream entrada(nomeArquivo, nomeArquivo.find(".csv") != string::npos ? ios::in : ios::binary);
     if (!entrada) {
         return NULL;
     }
 
-    string descArquivo;
-    getline(entrada, descArquivo);
-
     sportlist* vetorSportlist = new sportlist[capacidade];
     sportlist algumsportlist;
 
-    while (lerUmaUnicaLinha(entrada, algumsportlist)) {
-        if (numRegistros >= capacidade) {
-            capacidade += 20;
-            sportlist* novo = new sportlist[capacidade];
-            memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist));
-            delete[] vetorSportlist;
-            vetorSportlist = novo;
+    if (nomeArquivo.find(".csv") != string::npos) {
+        string descArquivo;
+        getline(entrada, descArquivo);
+        while (lerUmaUnicaLinha(entrada, algumsportlist)) {
+            if (numRegistros >= capacidade) {
+                capacidade += 20;
+                sportlist* novo = new sportlist[capacidade];
+                memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist));
+                delete[] vetorSportlist;
+                vetorSportlist = novo;
+            }
+            vetorSportlist[numRegistros] = algumsportlist;
+            numRegistros++;
         }
-        vetorSportlist[numRegistros] = algumsportlist;
-        numRegistros++;
+    } else {
+        while (entrada.read((char*)&algumsportlist, sizeof(sportlist))) {
+            if (numRegistros >= capacidade) {
+                capacidade += 20;
+                sportlist* novo = new sportlist[capacidade];
+                memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist));
+                delete[] vetorSportlist;
+                vetorSportlist = novo;
+            }
+            vetorSportlist[numRegistros] = algumsportlist;
+            numRegistros++;
+        }
     }
+
     return vetorSportlist;
 }
 
@@ -81,35 +115,51 @@ void buscaBinaria(sportlist* lista, int numRegistros) {
         cout << "Digite o termo para busca: ";
         cin.getline(chave, 30);
 
-        auto comp = [&](const sportlist& a, const sportlist& b) {
-            return (opcao == 1) ? strcmp(a.nome, b.nome) < 0 : strcmp(a.modalidade, b.modalidade) < 0;
+        // Converter a chave para minúsculas para comparações insensíveis a caso
+        auto toLowerCase = [](const char* str) -> string {
+            string lowerStr;
+            for (int i = 0; str[i] != '\0'; i++) {
+                lowerStr += tolower(str[i]);
+            }
+            return lowerStr;
         };
 
-        sort(lista, lista + numRegistros, comp);
+        string chaveBusca = toLowerCase(chave);
 
-        int inicio = 0, fim = numRegistros - 1;
-        bool encontrado = false;
-        while (inicio <= fim) {
-            int meio = (inicio + fim) / 2;
-            int cmp = (opcao == 1) ? strcmp(lista[meio].nome, chave) : strcmp(lista[meio].modalidade, chave);
-            if (cmp == 0) {
-                lista[meio].imprime();
-                encontrado = true;
-                break;
-            } else if (cmp < 0) {
-                inicio = meio + 1;
-            } else {
-                fim = meio - 1;
+        if (opcao == 1) {
+            // Busca por nome (insensitive + substrings)
+            bool encontrado = false;
+            for (int i = 0; i < numRegistros; i++) {
+                string nomeJogador = toLowerCase(lista[i].nome);
+                if (nomeJogador.find(chaveBusca) != string::npos) {
+                    lista[i].imprime();
+                    encontrado = true;
+                }
             }
-        }
-
-        if (!encontrado) {
-            cout << "Nenhum registro encontrado." << endl;
+            if (!encontrado) {
+                cout << "Nenhum jogador encontrado." << endl;
+            }
+        } else if (opcao == 2) {
+            // Busca por modalidade (insensitive + substrings)
+            bool encontrado = false;
+            for (int i = 0; i < numRegistros; i++) {
+                string modalidadeJogador = toLowerCase(lista[i].modalidade);
+                if (modalidadeJogador.find(chaveBusca) != string::npos) {
+                    lista[i].imprime();
+                    encontrado = true;
+                }
+            }
+            if (!encontrado) {
+                cout << "Nenhum jogador encontrado para a modalidade especificada." << endl;
+            }
         }
     } else {
         cout << "Opcao invalida!" << endl;
     }
 }
+
+
+
 
 void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
     limparTela();
@@ -205,26 +255,8 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
     }
 }
 
-void visualizarArquivo(sportlist* lista, int numRegistros) {
-    limparTela();
-    cout << "Visualizacao de Arquivo" << endl;
-    for (int i = 0; i < numRegistros; i++) {
-        lista[i].imprime();
-    }
-}
-
-int main() {
-    sportlist* lista;
-    int numRegistros = 0, capacidade = 50;
-    lista = lerDados(numRegistros, capacidade);
-
-    if (!lista) {
-        cout << "Erro ao ler o arquivo de entrada." << endl;
-        return 1;
-    }
-
-    bool continuar = true;
-    while (continuar) {
+void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade) {
+    while (true) {
         limparTela();
         cout << " ________________________ " << endl
 			 << "|         Menu           |" << endl
@@ -258,37 +290,57 @@ int main() {
                 exportarArquivo(lista, numRegistros);
                 break;
             case 4:
-                visualizarArquivo(lista, numRegistros);
+                limparTela();
+                for (int i = 0; i < numRegistros; i++) {
+                    lista[i].imprime();
+                }
                 break;
-            case 5: {
+            case 5:
                 cout << "Deseja salvar as alteracoes antes de sair? (s/n): ";
                 char salvar;
                 cin >> salvar;
                 if (salvar == 's' || salvar == 'S') {
-                    ofstream saida("arquivoentrada.csv");
-                    saida << "Nome,Idade,Nacionalidade,Altura,Peso,Modalidade\n";
-                    for (int i = 0; i < numRegistros; i++) {
-                        saida << lista[i].nome << ',' << lista[i].idade << ',' << lista[i].nacionalidade << ','
-                              << lista[i].altura << ',' << lista[i].peso << ',' << lista[i].modalidade << '\n';
-                    }
-                    saida.close();
+                    exportarArquivo(lista, numRegistros);
                 }
-                continuar = false;
-                break;
-            }
+                cout << "Programa encerrado!" << endl;
+                return;
             default:
                 cout << "Opcao invalida!" << endl;
         }
 
-        if (continuar) {
-            cout << "Deseja voltar ao menu principal? (s/n): ";
-            char resposta;
-            cin >> resposta;
-            if (resposta != 's' && resposta != 'S') {
-                continuar = false;
+        cout << "Deseja voltar ao menu principal? (s/n): ";
+        char continuar;
+        cin >> continuar;
+        if (continuar != 's' && continuar != 'S') {
+            cout << "Deseja salvar as alteracoes antes de sair? (s/n): ";
+            char salvar;
+            cin >> salvar;
+            if (salvar == 's' || salvar == 'S') {
+                exportarArquivo(lista, numRegistros);
             }
+            cout << "Programa encerrado!" << endl;
+            break;
         }
     }
+}
+
+int main() {
+    setlocale(LC_ALL, "pt_BR.UTF-8");
+    limparTela();
+    cout << "Bem-vindo ao sistema de gerenciamento de atletas!" << endl;
+    cout << "Digite o nome do arquivo que deseja carregar (com extensao .csv ou .dat): ";
+    string nomeArquivo;
+    cin >> nomeArquivo;
+
+    int numRegistros = 0, capacidade = 50;
+    sportlist* lista = lerDados(nomeArquivo, numRegistros, capacidade);
+
+    if (!lista) {
+        cout << "Nao foi possivel abrir o arquivo especificado. Certifique-se de que o nome esta correto e tente novamente." << endl;
+        return 1;
+    }
+
+    exibirMenu(lista, numRegistros, capacidade);
 
     delete[] lista;
     return 0;
