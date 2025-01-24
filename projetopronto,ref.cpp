@@ -160,18 +160,18 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
     cout << " ____________________ " << endl;
     cout << "| Alteracao na lista |" << endl;
     cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-    cout << " __________________________________________________________ " << endl;
-    cout << "| Digite 1 para alterar, 2 para excluir, 3 para adicionar: |" << endl;
-    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    cout << " ____________________________________________________________________________ " << endl;
+    cout << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar: |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     int opcao;
     cin >> opcao;
     cin.ignore();
 
     if (opcao == 1) {
         char chave[30];
-        cout << " __________________________________________ " << endl;
-        cout << "| Digite o nome do jogador a ser alterado: |" << endl;
-        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cout << " ___________________________________________________ " << endl;
+        cout << "| Digite o nome completo do jogador a ser alterado: |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin.getline(chave, 30);
         
         for (int i = 0; i < numRegistros; i++) {
@@ -198,9 +198,9 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else if (opcao == 2) {
         char chave[30];
-        cout << " __________________________________________ " << endl;
-        cout << "| Digite o nome do jogador a ser excluido: |"<< endl;
-        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cout << " ___________________________________________________ " << endl;
+        cout << "| Digite o nome completo do jogador a ser excluido: |"<< endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin.getline(chave, 30);
 
         for (int i = 0; i < numRegistros; i++) {
