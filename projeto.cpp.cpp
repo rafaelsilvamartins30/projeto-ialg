@@ -160,13 +160,13 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
     cout << " ____________________ " << endl;
     cout << "| Alteracao na lista |" << endl;
     cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-    cout << " ____________________________________________________________________________ " << endl;
-    cout << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar: |" << endl;
-    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    cout << " ____________________________________________________________________________________________________ " << endl;
+    cout << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar e 4 para voltar ao menu: |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     int opcao;
     cin >> opcao;
     cin.ignore();
-
+    
     if (opcao == 1) {
         char chave[30];
         cout << " ___________________________________________________ " << endl;
@@ -258,6 +258,8 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " _________________________________ " << endl;
         cout << "| Jogador adicionado com sucesso! |" << endl;
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    }else if(opcao == 4){
+        return;
     } else {
         cout << " _________________ " << endl;
         cout << "| Opcao invalida! |" << endl;
