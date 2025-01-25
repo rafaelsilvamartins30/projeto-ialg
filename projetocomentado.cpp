@@ -66,7 +66,7 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
         getline(entrada, descArquivo); // Lê a primeira linha (cabeçalho)
         while (lerUmaUnicaLinha(entrada, algumsportlist)) { // Lê os dados dos atletas
             if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
-                capacidade += 20; // Aumenta a capacidade
+                capacidade += 10; // Aumenta a capacidade
                 sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
                 memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist)); // Copia os dados antigos
                 delete[] vetorSportlist; // Libera a memória do vetor antigo
@@ -78,7 +78,7 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
     } else { // Se o arquivo não for CSV, lê os dados binários
         while (entrada.read((char*)&algumsportlist, sizeof(sportlist))) { // Lê os dados dos atletas
             if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
-                capacidade += 20; // Aumenta a capacidade
+                capacidade += 10; // Aumenta a capacidade
                 sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
                 memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist)); // Copia os dados antigos
                 delete[] vetorSportlist; // Libera a memória do vetor antigo
@@ -241,7 +241,7 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else if (opcao == 3) { // Adicionar novo jogador
         if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
-            capacidade += 20; // Aumenta a capacidade
+            capacidade += 10; // Aumenta a capacidade
             sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
             memcpy(novo, lista, numRegistros * sizeof(sportlist)); // Copia os dados antigos
             delete[] lista; // Libera a memória do vetor antigo
@@ -317,27 +317,140 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     }
 }
-
 // Função para comparar dois atletas pelo nome (para ordenação)
 bool comparaPorNome(const sportlist& a, const sportlist& b) {
     return strcmp(a.nome, b.nome) < 0; // Ordena em ordem alfabética
 }
 
+// Função para comparar dois atletas pela idade (para ordenação)
+bool comparaPorIdade(const sportlist& a, const sportlist& b) {
+    return a.idade < b.idade; // Ordena por idade
+}
+
+// Função para comparar dois atletas pela modalidade (para ordenação)
+bool comparaPorModalidade(const sportlist& a, const sportlist& b) {
+    return strcmp(a.modalidade, b.modalidade) < 0; // Ordena por modalidade
+}
+
+void imprimeordenado(sportlist* lista, int numRegistros) {
+    for (int i = 0; i < numRegistros; i++) {
+        lista[i].imprime(); // Imprime os dados de todos os jogadores
+    }
+}
+
+// Função de Quick Sort
+void quickSort(sportlist* lista, int esquerda, int direita, bool (*compara)(const sportlist&, const sportlist&)) {
+    int i = esquerda, j = direita;
+    sportlist pivo = lista[(esquerda + direita) / 2];
+
+    while (i <= j) {
+        while (compara(lista[i], pivo)) i++;
+        while (compara(pivo, lista[j])) j--;
+        if (i <= j) {
+            swap(lista[i], lista[j]);
+            i++;
+            j--;
+        }
+    }
+
+    if (esquerda < j) quickSort(lista, esquerda, j, compara);
+    if (i < direita) quickSort(lista, i, direita, compara);
+}
+
+void escolhertipo(sportlist* lista, int numRegistros){
+    limparTela(); // Limpa a tela
+    int tipoOrdenacao;
+    cout << " _____________________________________________________________________________________ " << endl;
+    cout << "| Digite 1 para vizualizar por nome, 2 para idade, 3 para modalidade e 4 para voltar: |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    cin >> tipoOrdenacao;
+
+    // Chama a função de ordenação correspondente
+    if (tipoOrdenacao == 1) { 
+        quickSort(lista, 0, numRegistros - 1, comparaPorNome);
+                    
+    }else if(tipoOrdenacao == 2){
+        quickSort(lista, 0, numRegistros - 1, comparaPorIdade);
+                   
+    }else if(tipoOrdenacao == 3){
+        quickSort(lista, 0, numRegistros - 1, comparaPorModalidade);
+                  
+    }else{
+        cout << " _________________ " << endl;
+        cout << "| Opcao invalida! |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    }           
+    // Imprime a lista ordenada
+    imprimeordenado(lista, numRegistros);
+}
+void visualizarIntervalo(sportlist* lista, int numRegistros) {
+    limparTela();
+    int inicio, fim;
+    cout << " __________________________ " << endl;
+    cout << "| Digite o índice inicial: |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    cin >> inicio;
+    cout << " ________________________ " << endl;
+    cout << "| Digite o índice final: |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    cin >> fim;
+
+    if (inicio < 0 || fim >= numRegistros || inicio > fim) {
+        cout << " _____________________ " << endl
+             << "| Intervalo inválido! |" << endl
+             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        return;
+    }
+
+    for (int i = inicio; i <= fim; i++) {
+        lista[i].imprime(); // Imprime os dados do jogador
+    }
+}
+
 // Função para salvar os dados em um arquivo binário
 void salvarDados(const string& nomeArquivo, sportlist* lista, int numRegistros) {
-    ofstream saida(nomeArquivo, ios::binary | ios::trunc); // Abre o arquivo em modo de escrita e truncamento
-    if (!saida) { // Verifica se o arquivo foi aberto corretamente
+    // Verifica a extensão do arquivo
+    if (nomeArquivo.find(".csv") != string::npos) {
+        // Se o arquivo for CSV, abre o arquivo para escrita em texto
+        ofstream saida(nomeArquivo);
+        if (!saida) { // Verifica se o arquivo foi aberto corretamente
+            cout << " _____________________________________ " << endl;
+            cout << "| Erro ao salvar os dados no arquivo! |" << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            return; // Sai da função
+        }
+        saida << "Nome,Idade,Nacionalidade,Altura,Peso,Modalidade\n"; // Escreve o cabeçalho
+        for (int i = 0; i < numRegistros; i++) { // Percorre a lista
+            saida << lista[i].nome << ',' 
+                   << lista[i].idade << ',' 
+                   << lista[i].nacionalidade << ',' 
+                   << lista[i].altura << ',' 
+                   << lista[i].peso << ',' 
+                   << lista[i].modalidade << '\n'; // Escreve os dados
+        }
+        cout << " ____________________________________ " << endl;
+        cout << "| Dados salvos como CSV com sucesso! |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    } else if (nomeArquivo.find(".dat") != string::npos) {
+        // Se o arquivo for binário, abre o arquivo para escrita em binário
+        ofstream saida(nomeArquivo, ios::binary | ios::trunc);
+        if (!saida) { // Verifica se o arquivo foi aberto corretamente
+            cout << " _____________________________________ " << endl;
+            cout << "| Erro ao salvar os dados no arquivo! |" << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            return; // Sai da função
+        }
+        for (int i = 0; i < numRegistros; i++) { // Percorre a lista
+            saida.write((char*)&lista[i], sizeof(sportlist)); // Escreve os dados no arquivo
+        }
+        cout << " ________________________________________ " << endl;
+        cout << "| Dados salvos como binário com sucesso! |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    } else {
         cout << " _____________________________________ " << endl;
-        cout << "| Erro ao salvar os dados no arquivo! |" << endl;
+        cout << "| Erro: Extensao de arquivo invalida! |" << endl;
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-        return; // Sai da função
     }
-    for (int i = 0; i < numRegistros; i++) { // Percorre a lista
-        saida.write((char*)&lista[i], sizeof(sportlist)); // Escreve os dados no arquivo
-    }
-    cout << " ______________________________________ " << endl;
-    cout << "| Dados salvos com sucesso no arquivo! |" << endl;
-        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 }
 
 // Função para exibir o menu principal e gerenciar as opções do usuário
@@ -357,7 +470,9 @@ void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const str
              << "|————————————————————————|" << endl
              << "| 4. Visualizar arquivo  |" << endl
              << "|————————————————————————|" << endl
-             << "| 5. Sair                |" << endl
+             << "| 5. Vizualizar trecho   |" << endl
+             << "|————————————————————————|" << endl
+             << "| 6. Sair                |" << endl
              << "|————————————————————————|" << endl
              << "| Escolha uma opcao:     |" << endl
              << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
@@ -377,13 +492,12 @@ void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const str
                 exportarArquivo(lista, numRegistros); // Chama a função para exportar o arquivo
                 break;
             case 4:
-                limparTela(); // Limpa a tela
-                std::sort(lista, lista + numRegistros, comparaPorNome); // Ordena a lista por nome
-                for (int i = 0; i < numRegistros; i++) {
-                    lista[i].imprime(); // Imprime os dados de todos os jogadores
-                }
+                escolhertipo(lista, numRegistros);
                 break;
-            case 5:
+            case 5: 
+                visualizarIntervalo(lista, numRegistros); 
+                break;
+            case 6:
                 cout << " ___________________________________________________ " << endl;
                 cout << "| Deseja salvar as alteracoes antes de sair? (s/n): |" << endl;
                 cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
@@ -405,7 +519,7 @@ void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const str
 
         if (continuarMenu) { // Se o menu continuar
             cout << " _________________________________________ " << endl;
-            cout << "| Deseja voltar ao menu principal? (s/n): |"  << endl;
+            cout << "| Deseja voltar ao menu principal? (s/n): |" << endl;
             cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
             char continuar;
             cin >> continuar; // Lê a confirmação para voltar ao menu
@@ -435,14 +549,14 @@ int main() {
     cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 
     string nomeArquivo; // Nome do arquivo a ser carregado
-    int numRegistros = 0, capacidade = 50; // Inicializa o número de registros e a capacidade
+    int numRegistros = 0, capacidade = 40; // Inicializa o número de registros e a capacidade
     sportlist* lista = nullptr; // Ponteiro para a lista de atletas
     bool arquivoAberto = false; // Flag para controlar a abertura do arquivo
 
     while (!arquivoAberto) { // Loop para abrir o arquivo
         cout << " ___________________________________________________________________________ " << endl;
         cout << "| Digite o nome do arquivo que deseja carregar (com extensao .csv ou .dat): |"  << endl;
-        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin >> nomeArquivo; // Lê o nome do arquivo
 
         lista = lerDados(nomeArquivo, numRegistros, capacidade); // Lê os dados do arquivo
@@ -453,7 +567,7 @@ int main() {
             limparTela(); // Limpa a tela
             cout << " ____________________________________________________________________________________________________________ " << endl;
             cout << "| Nao foi possivel abrir o arquivo especificado. Certifique-se de que o nome esta correto e tente novamente. |" << endl;
-            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 
             char tentarNovamente; // Variável para tentar abrir outro arquivo
             cout << " ___________________________________________ " << endl;
