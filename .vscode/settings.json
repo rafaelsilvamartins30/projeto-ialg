@@ -6,6 +6,7 @@
         "string_view": "cpp",
         "sstream": "cpp",
         "locale": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "iosfwd": "cpp"
     }
 }

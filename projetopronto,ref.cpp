@@ -174,11 +174,12 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin.getline(chave, 30);
         
-        for (int i = 0; i < numRegistros; i++) {
+        int i = 0;
+        while (i < numRegistros) {
             if (matches(lista[i].nome, chave)) {
                 cout << " __________________________________________________________________________________________ " << endl;
                 cout << "| Digite os novos dados do jogador (nome, idade, nacionalidade, altura, peso, modalidade): |" << endl;
-                cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+                cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
                 cout << "_____________________________________________" << endl;
                 cout << " Nome: "; cin.getline(lista[i].nome, 30); 
                 cout << " Idade: "; cin >> lista[i].idade; cin.ignore(); 
@@ -192,6 +193,7 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
                 cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
                 return;
             }
+            i++;
         }
         cout << " _________________________ " << endl;
         cout << "| Jogador nao encontrado! |" << endl;
@@ -203,7 +205,8 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin.getline(chave, 30);
 
-        for (int i = 0; i < numRegistros; i++) {
+        int i = 0;
+        while (i < numRegistros) {
             if (matches(lista[i].nome, chave)) {
                 char confirmacao;
                 cout << " _________________________________________ " << endl;
@@ -219,7 +222,7 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
                     numRegistros--;
                     cout << " _______________________________ " << endl;
                     cout << "| Jogador excluido com sucesso! |" << endl;
-                    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+                    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
                 } else {
                     cout << " _____________________ " << endl;
                     cout << "| Exclusão cancelada. |" << endl;
@@ -227,6 +230,7 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
                 }
                 return;
             }
+            i++;
         }
         cout << " _________________________ " << endl;
         cout << "| Jogador nao encontrado! |" << endl;
@@ -260,7 +264,6 @@ void alterarLista(sportlist*& lista, int& numRegistros, int& capacidade) {
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     }
 }
-
 void exportarArquivo(sportlist* lista, int numRegistros) {
     limparTela();
     cout << " _______________________ " << endl;
@@ -273,7 +276,12 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
     cin >> opcao;
 
     if (opcao == 1) {
-        ofstream saida("arquivo_exportado.csv");
+        string nomeArquivo;
+        cout << " _____________________________________________________________ " << endl;
+        cout << "| Digite o nome do arquivo de exportacao (com extensao .csv): |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cin >> nomeArquivo;
+        ofstream saida(nomeArquivo);
         saida << "Nome,Idade,Nacionalidade,Altura,Peso,Modalidade\n";
         for (int i = 0; i < numRegistros; i++) {
             saida << lista[i].nome << ',' << lista[i].idade << ',' << lista[i].nacionalidade << ','
@@ -284,7 +292,12 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
         cout << "| Arquivo exportado como CSV! |" << endl;
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else if (opcao == 2) {
-        ofstream saida("arquivo_exportado.dat", ios::binary);
+        string nomeArquivo;
+        cout << " _____________________________________________________________ " << endl;
+        cout << "| Digite o nome do arquivo de exportacao (com extensao .dat): |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cin >> nomeArquivo;
+        ofstream saida(nomeArquivo, ios::binary);
         saida.write((char*)lista, numRegistros * sizeof(sportlist));
         saida.close();
         cout << " _________________________________ " << endl;
@@ -297,65 +310,89 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
     }
 }
 
-void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade) {
-    while (true) {
-        limparTela();
-        cout << " ________________________ " << endl
-			 << "|         Menu           |" << endl
-			 << "|       Principal        |" << endl
-			 << "|————————————————————————|" << endl
-             << "| 1. Busca binaria       |" << endl
-			 << "|————————————————————————|" << endl
-             << "| 2. Alteracao na lista  |" << endl
-			 << "|————————————————————————|" << endl
-             << "| 3. Exportar arquivo    |" << endl
-			 << "|————————————————————————|" << endl
-             << "| 4. Visualizar arquivo  |" << endl
-			 << "|————————————————————————|" << endl
-             << "| 5. Sair                |" << endl
-			 << "|————————————————————————|" << endl
-			 << "| Escolha uma opcao:     |" << endl
-			 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+bool comparaPorNome(const sportlist& a, const sportlist& b) {
+    return strcmp(a.nome, b.nome) < 0; // Ordena em ordem alfabética
+}
 
-        int opcao;
-        cin >> opcao;
-        cin.ignore();
+void salvarDados(const string& nomeArquivo, sportlist* lista, int numRegistros) {
+    ofstream saida(nomeArquivo, ios::binary | ios::trunc); // Abrir o arquivo em modo de escrita e truncamento
+    if (!saida) {
+        cout << " _____________________________________ " << endl;
+        cout << "| Erro ao salvar os dados no arquivo! |" << endl;
+        cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        return;
+    }
+    for (int i = 0; i < numRegistros; i++) {
+        saida.write((char*)&lista[i], sizeof(sportlist));
+    }
+    cout << " ______________________________________ " << endl;
+    cout << "| Dados salvos com sucesso no arquivo! |" << endl;
+    cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+}
 
-        switch (opcao) {
-            case 1:
-                buscaBinaria(lista, numRegistros);
-                break;
-            case 2:
-                alterarLista(lista, numRegistros, capacidade);
-                break;
-            case 3:
-                exportarArquivo(lista, numRegistros);
-                break;
-            case 4:
-                limparTela();
-                for (int i = 0; i < numRegistros; i++) {
-                    lista[i].imprime();
-                }
-                break;
-            case 5:
-                cout << " ___________________________________________________ " << endl;
-                cout << "| Deseja salvar as alteracoes antes de sair? (s/n): |" << endl;
-                cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-                char salvar;
-                cin >> salvar;
-                if (salvar == 's' || salvar == 'S') {
-                    exportarArquivo(lista, numRegistros);
-                }
-                cout << " _____________________ " << endl;
-                cout << "| Programa encerrado! |" << endl;
-                cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-                return;
-            default:    
-                cout << " _________________ " << endl;
-                cout << "| Opcao invalida! |" << endl;
-                cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-        }
+void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const string& nomeArquivo) {
+    bool continuarMenu = true;
+    while (continuarMenu) {
+    limparTela();
+    cout << " ________________________ " << endl
+         << "|         Menu           |" << endl
+         << "|       Principal        |" << endl
+         << "|————————————————————————|" << endl
+         << "| 1. Busca binaria       |" << endl
+         << "|————————————————————————|" << endl
+         << "| 2. Alteracao na lista  |" << endl
+         << "|————————————————————————|" << endl
+         << "| 3. Exportar arquivo    |" << endl
+         << "|————————————————————————|" << endl
+         << "| 4. Visualizar arquivo  |" << endl
+         << "|————————————————————————|" << endl
+         << "| 5. Sair                |" << endl
+         << "|————————————————————————|" << endl
+         << "| Escolha uma opcao:     |" << endl
+         << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 
+    int opcao;
+    cin >> opcao;
+    cin.ignore();
+
+    switch (opcao) {
+        case 1:
+            buscaBinaria(lista, numRegistros);
+            break;
+        case 2:
+            alterarLista(lista, numRegistros, capacidade);
+            break;
+        case 3:
+            exportarArquivo(lista, numRegistros);
+            break;
+        case 4:
+            limparTela();
+            std::sort(lista, lista + numRegistros, comparaPorNome);
+            for (int i = 0; i < numRegistros; i++) {
+                lista[i].imprime();
+            }
+            break;
+        case 5:
+            cout << " ___________________________________________________ " << endl;
+            cout << "| Deseja salvar as alteracoes antes de sair? (s/n): |" << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            char salvar;
+            cin >> salvar;
+            if (salvar == 's' || salvar == 'S') {
+                salvarDados(nomeArquivo, lista, numRegistros);
+            }
+            cout << " _____________________ " << endl;
+            cout << "| Programa encerrado! |" << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            continuarMenu = false; // Sair do loop
+            break;
+        default:    
+            cout << " _________________ " << endl;
+            cout << "| Opcao invalida! |" << endl;
+            cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    }
+
+        if (continuarMenu) {
         cout << " _________________________________________ " << endl;
         cout << "| Deseja voltar ao menu principal? (s/n): |"  << endl;
         cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
@@ -368,12 +405,13 @@ void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade) {
             char salvar;
             cin >> salvar;
             if (salvar == 's' || salvar == 'S') {
-                exportarArquivo(lista, numRegistros);
+                salvarDados(nomeArquivo, lista, numRegistros);
             }
             cout << " _____________________ " << endl;
             cout << "| Programa encerrado! |" << endl;
             cout << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-            break;
+            continuarMenu = false; // Sair do loop
+            }
         }
     }
 }
@@ -424,7 +462,7 @@ int main() {
         }
     }
 
-    exibirMenu(lista, numRegistros, capacidade);
+    exibirMenu(lista, numRegistros, capacidade, nomeArquivo);
 
     delete[] lista;
     return 0;
