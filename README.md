@@ -67,10 +67,10 @@ Execute o programa:
 
 ## 🛠️ Tecnologias Utilizadas
 
-![C++](https://img.shields.io/badge/-C%2B%2B-00599C?logo=c%2B%2B&logoColor=white&style=flat)
+-![C++](https://img.shields.io/badge/-C%2B%2B-00599C?logo=c%2B%2B&logoColor=white&style=flat)
 
-![Binary](https://img.shields.io/badge/-Binary%20%28.dat%29-9B4D4D?logo=java&logoColor=white&style=flat)
+-![Binary](https://img.shields.io/badge/-Binary%20%28.dat%29-9B4D4D?logo=java&logoColor=white&style=flat)
 
-![CSV](https://img.shields.io/badge/-CSV-2E8B57?logo=csv&logoColor=white&style=flat)
+-![CSV](https://img.shields.io/badge/-CSV-2E8B57?logo=csv&logoColor=white&style=flat)
 
 ![gatinho](https://cataas.com/cat)
