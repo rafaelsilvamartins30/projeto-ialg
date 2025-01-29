@@ -68,9 +68,12 @@ Execute o programa:
 ## 🛠️ Tecnologias Utilizadas
 
 - **C++**  
-  ![C++ logo](https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg)  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" width="20" />  
   Linguagem de programação utilizada para o desenvolvimento do sistema.
 
 - **CSV / .dat (binário)**  
-  ![CSV logo](https://upload.wikimedia.org/wikipedia/commons/e/ec/CSV_file_icon.svg)  
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/CSV_file_icon.svg" width="20" />  
   Formato de arquivo usado para armazenar os dados dos atletas.
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Binary_file_icon.svg" width="20" />  
+  Formato binário para dados.
