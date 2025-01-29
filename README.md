@@ -67,15 +67,10 @@ Execute o programa:
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **C++**  
-  <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg" width="20" />  
-  Linguagem de programação utilizada para o desenvolvimento do sistema.
+![C++](https://img.shields.io/badge/-C%2B%2B-00599C?logo=c%2B%2B&logoColor=white&style=flat)
 
-- **CSV / .dat (binário)**  
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/CSV_file_icon.svg" width="20" />  
-  Formato de arquivo usado para armazenar os dados dos atletas.
+![Binary](https://img.shields.io/badge/-Binary%20%28.dat%29-9B4D4D?logo=java&logoColor=white&style=flat)
 
-  <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Binary_file_icon.svg" width="20" />  
-  Formato binário para dados.
+![CSV](https://img.shields.io/badge/-CSV-2E8B57?logo=csv&logoColor=white&style=flat)
 
 ![gatinho](https://cataas.com/cat)
