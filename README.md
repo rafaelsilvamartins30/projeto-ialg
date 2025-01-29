@@ -1,6 +1,6 @@
 # 🏅 Sistema de Cadastro de Atletas
 
-Este é um sistema simples desenvolvido em **C++** para o cadastro de atletas profissionais. O programa lê um arquivo CSV contendo informações dos atletas, processa esses dados e abre um display para manipula-los.
+Este é um sistema simples desenvolvido em **C++** para o cadastro de atletas profissionais. O programa lê um arquivo CSV contendo informações dos atletas, processa esses dados e exibe um display para manipulá-los.
 
 ## 🗂️ Estrutura do Projeto
 
@@ -8,7 +8,7 @@ O projeto está organizado da seguinte forma:
 
 - **`projeto-ialg.cpp`**: Código-fonte principal do sistema.
 - **`data.csv`**: Arquivo CSV com os dados dos atletas (certifique-se de que está no mesmo diretório que o programa).
-- **`data.dat`**: Mesmo arquivo so que em Binario (certifique-se de que está no mesmo diretório que o programa).
+- **`data.dat`**: Mesmo arquivo, porém em formato binário (certifique-se de que está no mesmo diretório que o programa).
 
 ## ⚙️ Funcionalidades
 
@@ -21,27 +21,27 @@ O projeto está organizado da seguinte forma:
   - **Modalidade**: Modalidade esportiva praticada pelo atleta.
 
 - Ao rodar o programa, ele lê os dados do arquivo e exibe no console um display, onde você tem acesso a algumas funcionalidades:
-  - **Busca Binaria por**:
-    - **Nome**
-    - **Idade**
+  - **Busca Binária por**:
+    - **Nome.**
+    - **Idade.**
   - **Alteração na lista**:
-    - **Editar um atletaa**
-    - **Excluir um atleta**
-    - **Adicionar um atleta**
-  - **Exportar arquivo escolhendo o nome em:**:
+    - **Editar um atletaa.**
+    - **Excluir um atleta.**
+    - **Adicionar um atleta.**
+  - **Exportar arquivo, escolhendo o nome e o formato**:
     - **.csv**
     - **.dat**
-  - **Vizualizar a lista toda ordenada por**:
-    - **Nome**
-    - **Idade**
-  - **Vizualizar um trecho especifico da lista ordenada por**:
-    - **Nome**
-    - **Idade**
-  - **Sair do programa tendo a opção de salvar o arquivo atual com as mudanças que fez ou não**
+  - **Visualizar a lista completa ordenada por**:
+    - **Nome.**
+    - **Idade.**
+  - **Visualizar um trecho específico da lista ordenada por**:
+    - **Nome.**
+    - **Idade.**
+  - **Sair do programa, com a opção de salvar ou não as mudanças feitas no arquivo atual.**
 
 ## 📑 Formato do Arquivo 
 
-O arquivo se for CSV tipo: `nomedoarquivo.csv` deve seguir o seguinte formato para garantir que o sistema funcione corretamente:
+Se o arquivo for CSV, como `nomedoarquivo.csv`, ele deve seguir o seguinte formato para garantir que o sistema funcione corretamente:
 
 ```csv
 nome,idade,nacionalidade,altura,peso,modalidade
@@ -49,7 +49,7 @@ Lebron James,39,Americano,2.06,113,Basquete
 Cristiano Ronaldo,39,Português,1.87,83,Futebol
 ```
 
-Caso não seja CSV precisa ser um arquivo binario com extensão .dat tipo: `nomedoarquivo.dat`.
+Caso contrário, o arquivo deve ser binário, com a extensão `.dat`, como `nomedoarquivo.dat`.
 
 ## 🚀 Como Executar o Projeto
 
@@ -58,7 +58,7 @@ Compile o código-fonte:
 g++ main.cpp -o programa
 ```
 
-Certifique-se de que o arquivo arquivo de entrada seja CSV ou Binario esteja no mesmo diretório que o programa.
+Certifique-se de que o arquivo arquivo de entrada seja CSV ou Binário esteja no mesmo diretório que o programa.
 
 Execute o programa:
 ```
