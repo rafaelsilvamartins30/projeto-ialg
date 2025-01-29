@@ -31,10 +31,10 @@ O projeto está organizado da seguinte forma:
   - **Exportar arquivo escolhendo o nome em:**:
     - **.csv**
     - **.dat**
-  - **Vizualizar a lista toda ordenada por:
+  - **Vizualizar a lista toda ordenada por**:
     - **Nome**
     - **Idade**
-  - **Vizualizar um trecho especifico da lista ordenada por:
+  - **Vizualizar um trecho especifico da lista ordenada por**:
     - **Nome**
     - **Idade**
   - **Sair do programa tendo a opção de salvar o arquivo atual com as mudanças que fez ou não**
@@ -67,5 +67,10 @@ Execute o programa:
 
 ## 🛠️ Tecnologias Utilizadas
 
-C++: Linguagem de programação utilizada para o desenvolvimento.
-CSV: Formato de arquivo usado para armazenar os dados dos atletas.
+- **C++**  
+  ![C++ logo](https://upload.wikimedia.org/wikipedia/commons/1/18/C_Programming_Language.svg)  
+  Linguagem de programação utilizada para o desenvolvimento do sistema.
+
+- **CSV / .dat (binário)**  
+  ![CSV logo](https://upload.wikimedia.org/wikipedia/commons/e/ec/CSV_file_icon.svg)  
+  Formato de arquivo usado para armazenar os dados dos atletas.
