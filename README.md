@@ -6,8 +6,9 @@ Este é um sistema simples desenvolvido em **C++** para o cadastro de atletas pr
 
 O projeto está organizado da seguinte forma:
 
-- **`main.cpp`**: Código-fonte principal do sistema.
-- **`arquivoentrada.csv`**: Arquivo CSV com os dados dos atletas (certifique-se de que está no mesmo diretório que o programa).
+- **`projeto-ialg.cpp`**: Código-fonte principal do sistema.
+- **`data.csv`**: Arquivo CSV com os dados dos atletas (certifique-se de que está no mesmo diretório que o programa).
+- **`data.dat`**: Mesmo arquivo so que em Binario (certifique-se de que está no mesmo diretório que o programa).
 
 ## ⚙️ Funcionalidades
 
@@ -23,7 +24,7 @@ O projeto está organizado da seguinte forma:
 
 ## 📑 Formato do Arquivo CSV
 
-O arquivo `arquivoentrada.csv` deve seguir o seguinte formato para garantir que o sistema funcione corretamente:
+O arquivo `nomedoarquivo.csv` deve seguir o seguinte formato para garantir que o sistema funcione corretamente:
 
 ```csv
 nome,idade,nacionalidade,altura,peso,modalidade
@@ -33,17 +34,15 @@ Cristiano Ronaldo,39,Português,1.87,83,Futebol
 
 ## 🚀 Como Executar o Projeto
 
-Compile o código-fonte:
-bash
-Copiar
-Editar
+```Compile o código-fonte:
 g++ main.cpp -o programa
-Certifique-se de que o arquivo arquivoentrada.csv esteja no mesmo diretório que o programa.
-Execute o programa:
-bash
-Copiar
-Editar
+```
+
+Certifique-se de que o arquivo arquivo de entrada seja CSV ou Binario esteja no mesmo diretório que o programa.
+
+```Execute o programa:
 ./programa
+```
 
 ## 🛠️ Tecnologias Utilizadas
 
