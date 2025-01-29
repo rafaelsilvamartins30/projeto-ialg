@@ -77,3 +77,5 @@ Execute o programa:
 
   <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Binary_file_icon.svg" width="20" />  
   Formato binário para dados.
+
+![gatinho](https://cataas.com/cat)
