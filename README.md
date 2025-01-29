@@ -73,4 +73,4 @@ Execute o programa:
 
 - ![CSV](https://img.shields.io/badge/-CSV-2E8B57?logo=csv&logoColor=white&style=flat)
 
-![Gatinho Fofo](https://i.pinimg.com/originals/0b/ea/44/0bea44e7bc926c85f055d2f31c3c385f.jpg)
+![Gatinho Fofo](https://placekitten.com/200/300)
