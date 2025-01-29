@@ -31,10 +31,10 @@ O projeto está organizado da seguinte forma:
   - **Exportar arquivo, escolhendo o nome e o formato**:
     - **.csv**
     - **.dat**
-  - **Visualizar a lista completa ordenada por**:
+  - **Visualizar a lista completa ordenada usando `quicksort` por**:
     - **Nome.**
     - **Idade.**
-  - **Visualizar um trecho específico da lista ordenada por**:
+  - **Visualizar um trecho específico da lista ordenada usando `quicksort` por**:
     - **Nome.**
     - **Idade.**
   - **Sair do programa, com a opção de salvar ou não as mudanças feitas no arquivo atual.**
