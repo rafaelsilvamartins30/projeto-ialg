@@ -15,7 +15,7 @@ Tema: Dados de atletas profissionais*/
 
 using namespace std;
 
-//struc dos itens que vamos trabalhar
+//struct dos itens que vamos trabalhar
 struct sportlist {
     char nome[40];          // Nome do jogador
     int idade;              // Idade do jogador
@@ -24,7 +24,7 @@ struct sportlist {
     int peso;               // Peso do jogador
     char modalidade[30];    // Modalidade esportiva do jogador
 
-    // Método para imprimir os dados do jogador
+    // Método para imprimir os dados do jogador formatado
     void imprime() {
         cout << "_____________________________________________" << endl
         	 << " Nome do Jogador: " << nome << endl
@@ -40,13 +40,22 @@ struct sportlist {
 // Função para limpar a tela do console
 void limparTela() {
     #ifdef _WIN32
-        system("cls"); // Para Windows
+        system("cls"); // Windows
     #else
-        system("clear"); // Para outros sistemas operacionais
+        system("clear"); // outros sistemas
     #endif
 }
 
-//displays
+// Função para comparar duas strings ignorando maiúsculas e minúsculas
+int comparaCaseInsensitive(const char* str1, const char* str2) {
+    #ifdef _WIN32
+        return _stricmp(str1, str2); // Windows
+    #else
+        return strcasecmp(str1, str2); // Unix/Linux
+    #endif
+}
+
+//displays que se repetem ou que são muito grandes
 void displaydeOpcaoInvalida(){
 	cout << " _________________ " << endl
     	 << "| Opcao invalida! |" << endl
@@ -119,7 +128,7 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
     if (nomeArquivo.find(".csv") != string::npos) {
         string descArquivo;
         getline(entrada, descArquivo); // Lê a primeira linha (cabeçalho)
-        while (lerUmaUnicaLinha(entrada, algumsportlist)) { // Lê os dados dos atletas
+        while (lerUmaUnicaLinha(entrada, algumsportlist)) { // Lê os dados dos atletas usando a função de ler uma linha 
             if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
                 capacidade += 10; // Aumenta a capacidade
                 sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
@@ -130,52 +139,26 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
             vetorSportlist[numRegistros] = algumsportlist; // Armazena os dados lidos
             numRegistros++; // Incrementa o número de registros
         }
-    } else { // Se o arquivo não for CSV, lê os dados binários
-        while (entrada.read((char*)&algumsportlist, sizeof(sportlist))) { // Lê os dados dos atletas
-            if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
-                capacidade += 10; // Aumenta a capacidade
-                sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
-                memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist)); // Copia os dados antigos
-                delete[] vetorSportlist; // Libera a memória do vetor antigo
-                vetorSportlist = novo; // Atualiza o ponteiro
+    } else { // Se o arquivo não for CSV, lê os dados binários praticamente igual acima so que em binario
+        while (entrada.read((char*)&algumsportlist, sizeof(sportlist))) { // faz a leitura do arquivo em binario
+            if (numRegistros >= capacidade) { 
+                capacidade += 10; 
+                sportlist* novo = new sportlist[capacidade]; 
+                memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist)); 
+                delete[] vetorSportlist; 
+                vetorSportlist = novo; 
             }
-            vetorSportlist[numRegistros] = algumsportlist; // Armazena os dados lidos
-            numRegistros++; // Incrementa o número de registros
+            vetorSportlist[numRegistros] = algumsportlist; 
+            numRegistros++; 
         }
     }
 
-    return vetorSportlist; // Retorna o vetor de sportlist
-}
-
-// Função para converter uma string para minúsculas
-std::string toLower(const std::string& str) {
-    // Cria uma cópia da string de entrada 'str'
-    // Isso é feito para não modificar a string original, já que ela é passada como referência constante
-    std::string lower_str = str; 
-
-    // Utiliza a função std::transform para aplicar a função ::tolower a cada caractere da string
-    // lower_str.begin() e lower_str.end() definem o intervalo de caracteres a serem transformados
-    // O resultado da transformação é armazenado de volta em lower_str, começando na mesma posição (lower_str.begin())
-    std::transform(lower_str.begin(), lower_str.end(), lower_str.begin(), ::tolower);
-
-    // Retorna a string convertida para minúsculas
-    return lower_str; 
-}
-
-// Função para verificar se o nome contém a chave de busca
-bool procurarChavedeBusca(const std::string& name, const std::string& search) {
-    // Converte tanto 'name' quanto 'search' para minúsculas usando a função toLower
-    // Em seguida, utiliza o método find para procurar a string 'search' dentro de 'name'
-    // O método find retorna a posição da primeira ocorrência da substring ou std::string::npos se não for encontrada
-    // A comparação com std::string::npos verifica se a substring foi encontrada
-    // Se a posição retornada for diferente de npos, significa que a chave foi encontrada, e a função retorna true
-    // Caso contrário, retorna false
-    return toLower(name).find(toLower(search)) != std::string::npos; 
+    return vetorSportlist; // Retorna o vetor sportlist
 }
 
 // Função para comparar dois atletas pelo nome (para ordenação)
 bool comparaPorNome(const sportlist& a, const sportlist& b) {
-    return strcmp(a.nome, b.nome) < 0; // Ordena em ordem alfabética
+    return comparaCaseInsensitive(a.nome, b.nome) < 0; // Ordena em ordem alfabética (case-insensitive)
 }
 
 // Função para comparar dois atletas pela idade (para ordenação)
@@ -185,52 +168,73 @@ bool comparaPorIdade(const sportlist& a, const sportlist& b) {
 
 // Função de Quick Sort
 void quickSort(sportlist* lista, int esquerdaquickSort, int direitaquickSort, bool (*compara)(const sportlist&, const sportlist&)) {
-    int iquickSort = esquerdaquickSort, jquickSort = direitaquickSort;
-    sportlist pivo = lista[(esquerdaquickSort + direitaquickSort) / 2]; // Escolhe o pivô
+    // Inicializa os índices para percorrer a lista
+    int iquickSort = esquerdaquickSort; // Índice que começa no início da lista
+    int jquickSort = direitaquickSort;  // Índice que começa no final da lista
 
-    while (iquickSort <= jquickSort) {
-        while (compara(lista[iquickSort], pivo)) iquickSort++; // Encontra o primeiro elemento maior que o pivô
-        while (compara(pivo, lista[jquickSort])) jquickSort--; // Encontra o primeiro elemento menor que o pivô
-        if (iquickSort <= jquickSort) {
-            swap(lista[iquickSort], lista[jquickSort]); // Troca os elementos
+    sportlist pivo = lista[(esquerdaquickSort + direitaquickSort) / 2]; // Escolhe o pivô como o elemento do meio da lista
+
+    while (iquickSort <= jquickSort) { // Enquanto os índices não se cruzarem
+        while (compara(lista[iquickSort], pivo)) {  // Avança o índice 'iquickSort' enquanto o elemento for "menor" que o pivô (de acordo com a função 'compara')
             iquickSort++;
-            jquickSort--;
+        }
+        
+        while (compara(pivo, lista[jquickSort])) { // Retrocede o índice 'jquickSort' enquanto o elemento for "maior" que o pivô (de acordo com a função 'compara')
+            jquickSort--; 
+        }
+
+        if (iquickSort <= jquickSort) { // Se os índices não se cruzaram, troca os elementos nas posições 'iquickSort' e 'jquickSort'
+            std::swap(lista[iquickSort], lista[jquickSort]); // Troca os elementos
+            iquickSort++; // Avança o índice 'iquickSort'
+            jquickSort--; // Retrocede o índice 'jquickSort'
         }
     }
 
-    if (esquerdaquickSort < jquickSort) quickSort(lista, esquerdaquickSort, jquickSort, compara); // Recursão para a parte esquerda
-    if (iquickSort < direitaquickSort) quickSort(lista, iquickSort, direitaquickSort, compara); // Recursão para a parte direita
+    // Recursão para a parte esquerda da lista (elementos menores que o pivô)
+    if (esquerdaquickSort < jquickSort) {
+        quickSort(lista, esquerdaquickSort, jquickSort, compara);
+    }
+
+    // Recursão para a parte direita da lista (elementos maiores que o pivô)
+    if (iquickSort < direitaquickSort) {
+        quickSort(lista, iquickSort, direitaquickSort, compara);
+    }
 }
 
 // Função de busca binária
-int buscaBinariaFunction(sportlist* lista, int numRegistros, const std::string& chavebuscaBinariaFunction, bool buscaPorNome) {
-    int esquerdabuscaBinariaFunction = 0;
-    int direitabuscaBinariaFunction = numRegistros - 1;
-    int encontrado = -1;
+int buscaBinariaFunction(sportlist* lista, int numRegistros, const std::string& chave, bool buscaPorNome) {
+    int esquerda = 0; // Índice inicial da lista
+    int direita = numRegistros - 1; // Índice final da lista
 
-    while (esquerdabuscaBinariaFunction <= direitabuscaBinariaFunction) {
-        int meiobuscaBinariaFunction = esquerdabuscaBinariaFunction + (direitabuscaBinariaFunction - esquerdabuscaBinariaFunction) / 2;
+    while (esquerda <= direita) {
+        int meio = esquerda + (direita - esquerda) / 2; // Calcula o índice do meio
 
         if (buscaPorNome) {
-            std::string valorMeio = lista[meiobuscaBinariaFunction].nome;
-            if (procurarChavedeBusca(valorMeio, chavebuscaBinariaFunction)) {
-                encontrado = meiobuscaBinariaFunction; // Salva a posição inicial
-                direitabuscaBinariaFunction = meiobuscaBinariaFunction - 1; // Continua procurando à esquerda para encontrar a primeira ocorrência
+            // Busca por nome (ignorando maiúsculas e minúsculas)
+            int comparacao = comparaCaseInsensitive(lista[meio].nome, chave.c_str());
+            if (comparacao == 0) {
+                return meio; // Retorna o índice do elemento encontrado
+            } else if (comparacao < 0) {
+                esquerda = meio + 1; // Busca na metade direita
+            } else {
+                direita = meio - 1; // Busca na metade esquerda
             }
         } else {
-            int valorMeio = lista[meiobuscaBinariaFunction].idade;
-            if (valorMeio == std::stoi(chavebuscaBinariaFunction)) {
-                return meiobuscaBinariaFunction; // Retorna diretamente o índice encontrado
-            }
-        }
+            // Busca por idade
+            int idadeMeio = lista[meio].idade;
+            int idadeChave = std::stoi(chave); // Converte a chave para inteiro
 
-        if (buscaPorNome ? toLower(lista[meiobuscaBinariaFunction].nome) < toLower(chavebuscaBinariaFunction) : lista[meiobuscaBinariaFunction].idade < std::stoi(chavebuscaBinariaFunction)) {
-            esquerdabuscaBinariaFunction = meiobuscaBinariaFunction + 1; // Busca na metade direita
-        } else {
-            direitabuscaBinariaFunction = meiobuscaBinariaFunction - 1; // Busca na metade esquerda
+            if (idadeMeio == idadeChave) {
+                return meio; // Retorna o índice do elemento encontrado
+            } else if (idadeMeio < idadeChave) {
+                esquerda = meio + 1; // Busca na metade direita
+            } else {
+                direita = meio - 1; // Busca na metade esquerda
+            }
         }
     }
-    return encontrado; // Retorna -1 se não encontrar
+
+    return -1; // Retorna -1 se o elemento não for encontrado
 }
 
 // Função de escolha da busca binária
@@ -243,65 +247,71 @@ void buscaBinaria(sportlist* lista, int numRegistros) {
          << "| Digite 1 para buscar por nome ou 2 para buscar por idade: |" << endl
          << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 
-    int opcaobuscaBinaria;
-    cin >> opcaobuscaBinaria;
+    int opcao;
+    cin >> opcao;
     cin.ignore();
 
-    if (opcaobuscaBinaria == 1) { // Busca por nome
-        string chavebuscaBinariaNome;
+    if (opcao == 1) { // Busca por nome
+        string chave;
         cout << " ___________________________ " << endl
              << "| Digite o nome para busca: |" << endl
              << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-        getline(cin, chavebuscaBinariaNome);
+        getline(cin, chave);
 
         // Ordena a lista por nome
         quickSort(lista, 0, numRegistros - 1, comparaPorNome);
-        int indicebuscaBinariaNome = buscaBinariaFunction(lista, numRegistros, chavebuscaBinariaNome, true);
 
-        if (indicebuscaBinariaNome != -1) {
-            
-            lista[indicebuscaBinariaNome].imprime();
-            // Verifica jogadores à esquerda
-            int i = indicebuscaBinariaNome - 1;
-            while (i >= 0 && lista[i].nome == chavebuscaBinariaNome) {
+        // Realiza a busca binária
+        int indice = buscaBinariaFunction(lista, numRegistros, chave, true);
+
+        if (indice != -1) {
+            // Exibe o registro encontrado
+            lista[indice].imprime();
+
+            // Verifica registros à esquerda (caso haja duplicatas)
+            int i = indice - 1;
+            while (i >= 0 && lista[i].nome == chave) {
                 lista[i].imprime();
                 i--;
             }
 
-            // Verifica jogadores à direita
-            int j = indicebuscaBinariaNome + 1;
-            while (j < numRegistros && lista[j].nome == chavebuscaBinariaNome) {
+            // Verifica registros à direita (caso haja duplicatas)
+            int j = indice + 1;
+            while (j < numRegistros && lista[j].nome == chave) {
                 lista[j].imprime();
                 j++;
             }
-
         } else {
             displayJogadorNaoEncontrado();
         }
 
-    } else if (opcaobuscaBinaria == 2) { // Busca por idade
-        int chavebuscaBinariaIdade;
+    } else if (opcao == 2) { // Busca por idade
+        int chave;
         cout << " ____________________________ " << endl
              << "| Digite a idade para busca: |" << endl
              << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-        cin >> chavebuscaBinariaIdade;
+        cin >> chave;
 
         // Ordena a lista por idade
         quickSort(lista, 0, numRegistros - 1, comparaPorIdade);
-        int indicebuscaBinariaIdade = buscaBinariaFunction(lista, numRegistros, std::to_string(chavebuscaBinariaIdade), false);
 
-        if (indicebuscaBinariaIdade != -1) {
-            lista[indicebuscaBinariaIdade].imprime();
-            // Verifica jogadores à esquerda
-            int i = indicebuscaBinariaIdade - 1;
-            while (i >= 0 && lista[i].idade == chavebuscaBinariaIdade) {
+        // Realiza a busca binária
+        int indice = buscaBinariaFunction(lista, numRegistros, std::to_string(chave), false);
+
+        if (indice != -1) {
+            // Exibe o registro encontrado
+            lista[indice].imprime();
+
+            // Verifica registros à esquerda (caso haja duplicatas)
+            int i = indice - 1;
+            while (i >= 0 && lista[i].idade == chave) {
                 lista[i].imprime();
                 i--;
             }
 
-            // Verifica jogadores à direita
-            int j = indicebuscaBinariaIdade + 1;
-            while (j < numRegistros && lista[j].idade == chavebuscaBinariaIdade) {
+            // Verifica registros à direita (caso haja duplicatas)
+            int j = indice + 1;
+            while (j < numRegistros && lista[j].idade == chave) {
                 lista[j].imprime();
                 j++;
             }
@@ -644,6 +654,7 @@ void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const str
             char continuarExibirMenu;
             cin >> continuarExibirMenu; // Lê a confirmação para voltar ao menu
             if (continuarExibirMenu != 's' && continuarExibirMenu != 'S') {
+                limparTela();
                 displaySalvarAlterações();
                 char salvarExibirMenu;
                 cin >> salvarExibirMenu; // Lê a confirmação para salvar
