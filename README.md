@@ -73,4 +73,5 @@ Execute o programa:
 
 - ![CSV](https://img.shields.io/badge/-CSV-2E8B57?logo=csv&logoColor=white&style=flat)
 
-![Gatinho Fofo](https://placekitten.com/300/300)
+![Gatinho Fofo](https://www.petfinder.com/wp-content/uploads/2020/10/kitten-feature.jpg)
+
