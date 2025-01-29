@@ -95,12 +95,12 @@ void displaySalvarAlterações(){
 // Função para ler uma única linha do arquivo e preencher os dados do atleta
 bool lerUmaUnicaLinha(ifstream& entrada, sportlist& algumsportlist) {
     char virgula; // Variável para armazenar a vírgula
-    return entrada.getline(algumsportlist.nome, 40, ',') // Lê o nome até a vírgula
-           && (entrada >> algumsportlist.idade >> virgula) // Lê a idade
-           && (entrada.getline(algumsportlist.nacionalidade, 30, ',')) // Lê a nacionalidade
-           && (entrada >> algumsportlist.altura >> virgula) // Lê a altura
-           && (entrada >> algumsportlist.peso >> virgula) // Lê o peso
-           && (entrada.getline(algumsportlist.modalidade, 30)); // Lê a modalidade
+    return entrada.getline(algumsportlist.nome, 40, ',') // Lê até a vírgula
+           && (entrada >> algumsportlist.idade >> virgula) 
+           && (entrada.getline(algumsportlist.nacionalidade, 30, ',')) 
+           && (entrada >> algumsportlist.altura >> virgula) 
+           && (entrada >> algumsportlist.peso >> virgula) 
+           && (entrada.getline(algumsportlist.modalidade, 30)); 
 }
 
 // Função para ler os dados de um arquivo e armazená-los em um vetor de sportlist
@@ -416,7 +416,7 @@ void editarLista(sportlist*& lista, int& numRegistros){
 
 // Função para escolher a aleteração de dados
 void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
-    limparTela(); // Limpa a tela
+    limparTela(); 
     cout << " ____________________ " << endl
     	 << "| Alteracao na lista |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
@@ -442,7 +442,7 @@ void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
 
 // Função para exportar os dados para um arquivo
 void exportarArquivo(sportlist* lista, int numRegistros) {
-    limparTela(); // Limpa a tela
+    limparTela();
     cout << " _______________________ " << endl
     	 << "| Exportacao de Arquivo |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
@@ -494,7 +494,7 @@ void imprimeOrdenado(sportlist* lista, int numRegistros) {
 
 // Função para escolher o tipo de ordenação
 bool escolherTipo(sportlist* lista, int numRegistros) {
-    limparTela(); // Limpa a tela
+    limparTela(); 
     int tipoOrdenacao;
 	bool escolheuordenacao = true;
     cout << " ____________________________________________________ " << endl
@@ -525,7 +525,7 @@ void vizualizarPorOrde(sportlist* lista, int numRegistros) {
 // Função para visualizar um intervalo de atletas
 void visualizarIntervalo(sportlist* lista, int numRegistros) {
     if (escolherTipo(lista, numRegistros)){
-		limparTela(); // Limpa a tela
+		limparTela(); 
 		int inicio, fim;
 		cout << " __________________________ " << endl
 			 << "| Digite o índice inicial: |" << endl
@@ -599,15 +599,15 @@ void salvarDados(const string& nomeArquivo, sportlist* lista, int numRegistros) 
 
 // Função para exibir o menu principal e gerenciar as opções do usuário
 void exibirMenu(sportlist*& lista, int& numRegistros, int& capacidade, const string& nomeArquivo) {
-    bool continuarMenu = true; // Flag para controlar o loop do menu
+    bool continuarMenu = true; // Controle do loop do menu
     while (continuarMenu) {
-        limparTela(); // Limpa a tela
+        limparTela(); 
         displayMenuPrincipal();
         int opcaoexibirMenu;
-        cin >> opcaoexibirMenu; // Lê a opção do usuário
+        cin >> opcaoexibirMenu; 
         cin.ignore(); // Limpa o buffer
 
-        switch (opcaoexibirMenu) {
+        switch (opcaoexibirMenu) { // Switch do menu
             case 1:
                 buscaBinaria(lista, numRegistros); // Chama a função de busca binária
                 break;
@@ -667,7 +667,7 @@ int main() {
     string nomeArquivo; // Variavel para o nome do arquivo 
     int numRegistros = 0, capacidade = 40; // Inicializa o número de registros e a capacidade
     sportlist* lista = nullptr; // Ponteiro para a lista de atletas
-    bool arquivoAberto = false; // Flag para controlar a abertura do arquivo
+    bool arquivoAberto = false; // Controle da abertura do arquivo
 
     while (!arquivoAberto) { // Loop para abrir o arquivo
         cout << " ___________________________________________________________________________ " << endl
@@ -680,7 +680,7 @@ int main() {
         if (lista) { // Verifica se a leitura foi bem-sucedida
             arquivoAberto = true; // Marca que o arquivo foi aberto
         } else { // Se a leitura falhou
-            limparTela(); // Limpa a tela
+            limparTela(); 
             cout << " ____________________________________________________________________________________________________________ " << endl
             	 << "| Nao foi possivel abrir o arquivo especificado. Certifique-se de que o nome esta correto e tente novamente. |" << endl
             	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
@@ -693,7 +693,7 @@ int main() {
 
             if (tentarNovamente != 's' && tentarNovamente != 'S') { // Se não tentar novamente
                 limparTela();
-                displayEncerrarPrograma();
+                displayEncerrarPrograma(); // Encerra programa
                 return 0; 
             } else {
                 limparTela();
