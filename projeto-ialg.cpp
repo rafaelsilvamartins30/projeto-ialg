@@ -51,14 +51,14 @@ int comparaCaseInsensitive(const char* str1, const char* str2) {
     #ifdef _WIN32
         return _stricmp(str1, str2); // Windows
     #else
-        return strcasecmp(str1, str2); // Unix/Linux
+        return strcasecmp(str1, str2);  // outros sistemas
     #endif
 }
 
 //displays que se repetem ou que são muito grandes
 void displaydeOpcaoInvalida(){
 	cout << " _________________ " << endl
-    	 << "| Opcao invalida! |" << endl
+    	 << "| Opcao inválida! |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 }
 
@@ -79,25 +79,25 @@ void displayMenuPrincipal(){
          << "|         Menu           |" << endl
          << "|       Principal        |" << endl
          << "|————————————————————————|" << endl
-         << "| 1. Busca binaria       |" << endl
+         << "| 1. Busca binária       |" << endl
      	 << "|————————————————————————|" << endl
-         << "| 2. Alteracao na lista  |" << endl
+         << "| 2. Alteração na lista  |" << endl
          << "|————————————————————————|" << endl
          << "| 3. Exportar arquivo    |" << endl
          << "|————————————————————————|" << endl
          << "| 4. Visualizar arquivo  |" << endl
          << "|————————————————————————|" << endl
-         << "| 5. Vizualizar trecho   |" << endl
+         << "| 5. Visualizar trecho   |" << endl
          << "|————————————————————————|" << endl
          << "| 6. Sair                |" << endl
          << "|————————————————————————|" << endl
-         << "| Escolha uma opcao:     |" << endl
+         << "| Escolha uma opção:     |" << endl
          << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 }
 
 void displaySalvarAlterações(){
 	cout << " ___________________________________________________ " << endl
-    	 << "| Deseja salvar as alteracoes antes de sair? (s/n): |" << endl
+    	 << "| Deseja salvar as alterações antes de sair? (s/n): |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 }
 
@@ -129,7 +129,7 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
         string descArquivo;
         getline(entrada, descArquivo); // Lê a primeira linha (cabeçalho)
         while (lerUmaUnicaLinha(entrada, algumsportlist)) { // Lê os dados dos atletas usando a função de ler uma linha 
-            if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
+            if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade e faz o redimensionamento do vetor
                 capacidade += 10; // Aumenta a capacidade
                 sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
                 memcpy(novo, vetorSportlist, numRegistros * sizeof(sportlist)); // Copia os dados antigos
@@ -158,7 +158,7 @@ sportlist* lerDados(const string& nomeArquivo, int& numRegistros, int& capacidad
 
 // Função para comparar dois atletas pelo nome (para ordenação)
 bool comparaPorNome(const sportlist& a, const sportlist& b) {
-    return comparaCaseInsensitive(a.nome, b.nome) < 0; // Ordena em ordem alfabética (case-insensitive)
+    return comparaCaseInsensitive(a.nome, b.nome) < 0; // Ordena em ordem alfabética ignorando maiuscula minuscula
 }
 
 // Função para comparar dois atletas pela idade (para ordenação)
@@ -169,33 +169,33 @@ bool comparaPorIdade(const sportlist& a, const sportlist& b) {
 // Função de Quick Sort
 void quickSort(sportlist* lista, int esquerdaquickSort, int direitaquickSort, bool (*compara)(const sportlist&, const sportlist&)) {
     // Inicializa os índices para percorrer a lista
-    int iquickSort = esquerdaquickSort; // Índice que começa no início da lista
-    int jquickSort = direitaquickSort;  // Índice que começa no final da lista
+    int iquickSort = esquerdaquickSort; // Índice do início da lista
+    int jquickSort = direitaquickSort;  // Índice do final da lista
 
     sportlist pivo = lista[(esquerdaquickSort + direitaquickSort) / 2]; // Escolhe o pivô como o elemento do meio da lista
 
     while (iquickSort <= jquickSort) { // Enquanto os índices não se cruzarem
-        while (compara(lista[iquickSort], pivo)) {  // Avança o índice 'iquickSort' enquanto o elemento for "menor" que o pivô (de acordo com a função 'compara')
+        while (compara(lista[iquickSort], pivo)) {  // Avança o índice 'iquickSort' enquanto o elemento for menor que o pivô de acordo com a função 'compara'
             iquickSort++;
         }
         
-        while (compara(pivo, lista[jquickSort])) { // Retrocede o índice 'jquickSort' enquanto o elemento for "maior" que o pivô (de acordo com a função 'compara')
+        while (compara(pivo, lista[jquickSort])) { // Retrocede o índice 'jquickSort' enquanto o elemento for maior que o pivô de acordo com a função 'compara'
             jquickSort--; 
         }
 
-        if (iquickSort <= jquickSort) { // Se os índices não se cruzaram, troca os elementos nas posições 'iquickSort' e 'jquickSort'
-            std::swap(lista[iquickSort], lista[jquickSort]); // Troca os elementos
-            iquickSort++; // Avança o índice 'iquickSort'
-            jquickSort--; // Retrocede o índice 'jquickSort'
+        if (iquickSort <= jquickSort) { // Se os índices não se cruzaram, troca os elementos das posições dos índices de lugar
+            std::swap(lista[iquickSort], lista[jquickSort]); 
+            iquickSort++; // Avança o 'iquickSort'
+            jquickSort--; // Retrocede o 'jquickSort'
         }
     }
 
-    // Recursão para a parte esquerda da lista (elementos menores que o pivô)
+    // Recursão para a parte esquerda elementos menores que o pivô
     if (esquerdaquickSort < jquickSort) {
         quickSort(lista, esquerdaquickSort, jquickSort, compara);
     }
 
-    // Recursão para a parte direita da lista (elementos maiores que o pivô)
+    // Recursão para a parte direita elementos maiores que o pivô
     if (iquickSort < direitaquickSort) {
         quickSort(lista, iquickSort, direitaquickSort, compara);
     }
@@ -224,12 +224,12 @@ int buscaBinariaFunction(sportlist* lista, int numRegistros, const std::string& 
             int idadeMeio = lista[meio].idade;
             int idadeChave = std::stoi(chave); // Converte a chave para inteiro
 
-            if (idadeMeio == idadeChave) {
-                return meio; // Retorna o índice do elemento encontrado
+            if (idadeMeio == idadeChave) { //igual a de cima
+                return meio; 
             } else if (idadeMeio < idadeChave) {
-                esquerda = meio + 1; // Busca na metade direita
+                esquerda = meio + 1; 
             } else {
-                direita = meio - 1; // Busca na metade esquerda
+                direita = meio - 1; // 
             }
         }
     }
@@ -241,7 +241,7 @@ int buscaBinariaFunction(sportlist* lista, int numRegistros, const std::string& 
 void buscaBinaria(sportlist* lista, int numRegistros) {
     limparTela();
     cout << " _______________ " << endl
-         << "| Busca Binaria |" << endl
+         << "| Busca Binária |" << endl
          << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
          << " ___________________________________________________________ " << endl
          << "| Digite 1 para buscar por nome ou 2 para buscar por idade: |" << endl
@@ -325,23 +325,23 @@ void buscaBinaria(sportlist* lista, int numRegistros) {
 
 // Função para adicionar dados a lista
 void adicionarLista(sportlist*& lista, int& numRegistros, int& capacidade){
-	if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade
-            capacidade += 10; // Aumenta a capacidade
-            sportlist* novo = new sportlist[capacidade]; // Aloca novo vetor
-            memcpy(novo, lista, numRegistros * sizeof(sportlist)); // Copia os dados antigos
-            delete[] lista; // Libera a memória do vetor antigo
-            lista = novo; // Atualiza o ponteiro
+	if (numRegistros >= capacidade) { // Verifica se é necessário aumentar a capacidade e faz redimensionamento de vetor igual na leitura
+            capacidade += 10; 
+            sportlist* novo = new sportlist[capacidade]; 
+            memcpy(novo, lista, numRegistros * sizeof(sportlist)); 
+            delete[] lista; 
+            lista = novo; 
         }
         cout << " _________________________________________________________________________________________ " << endl
-        	 << "| Digite os dados do novo jogador (nome, idade, nacionalidade, altura, peso, modalidade): |" << endl
+        	 << "| Digite os dados do novo jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
         	 << "_____________________________________________" << endl;
-        cout << " Nome: "; cin.getline(lista[numRegistros].nome, 40); // Lê o nome do novo jogador
-        cout << " Idade: "; cin >> lista[numRegistros].idade; cin.ignore(); // Lê a idade
-        cout << " Nacionalidade: "; cin.getline(lista[numRegistros].nacionalidade, 30); // Lê a nacionalidade
-        cout << " Altura: "; cin >> lista[numRegistros].altura; // Lê a altura
-        cout << " Peso: "; cin >> lista[numRegistros].peso; cin.ignore(); // Lê o peso
-        cout << " Modalidade: "; cin.getline(lista[numRegistros].modalidade, 30); // Lê a modalidade
+        cout << " Nome: "; cin.getline(lista[numRegistros].nome, 40);                        // lê aos dados do novo alteta
+        cout << " Idade: "; cin >> lista[numRegistros].idade; cin.ignore(); 
+        cout << " Nacionalidade: "; cin.getline(lista[numRegistros].nacionalidade, 30); 
+        cout << " Altura: "; cin >> lista[numRegistros].altura; 
+        cout << " Peso: "; cin >> lista[numRegistros].peso; cin.ignore();
+        cout << " Modalidade: "; cin.getline(lista[numRegistros].modalidade, 30); 
         cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl
         	 << " _________________________________ " << endl
         	 << "| Jogador adicionado com sucesso! |" << endl
@@ -354,7 +354,7 @@ void adicionarLista(sportlist*& lista, int& numRegistros, int& capacidade){
 void excluirLista(sportlist*& lista, int& numRegistros) {
     string chaveexcluirLista; // Variável para armazenar o nome do jogador a ser excluído
     cout << " ___________________________________________________ " << endl
-         << "| Digite o nome completo do jogador a ser excluido: |" << endl
+         << "| Digite o nome completo do jogador a ser excluído: |" << endl
          << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     getline(cin, chaveexcluirLista); // Lê o nome do jogador
 
@@ -366,8 +366,12 @@ void excluirLista(sportlist*& lista, int& numRegistros) {
 
     if (indiceexcluirLista != -1) { // Jogador encontrado
         char confirmacaoexcluirLista;
+        cout << " _____________________ " << endl
+             << "| Jogador encontrado: |" << endl
+             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            lista[indiceexcluirLista].imprime();
         cout << " _________________________________________ " << endl
-             << "| Você realmente deseja exclui-lo? (s/n): |" << endl
+             << "| Você realmente deseja excluí-lo? (s/n): |" << endl
              << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin >> confirmacaoexcluirLista;
         cin.ignore();
@@ -378,7 +382,7 @@ void excluirLista(sportlist*& lista, int& numRegistros) {
             }
             numRegistros--; // Decrementa o número de registros
             cout << " _______________________________ " << endl
-                 << "| Jogador excluido com sucesso! |" << endl
+                 << "| Jogador excluído com sucesso! |" << endl
                  << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         } else { // Se não confirmado
             cout << " _____________________ " << endl
@@ -406,15 +410,15 @@ void editarLista(sportlist*& lista, int& numRegistros){
         
     if (indiceeditarLista != -1) { // Verifica se o nome corresponde à chave
         cout << " __________________________________________________________________________________________ " << endl
-        	 << "| Digite os novos dados do jogador (nome, idade, nacionalidade, altura, peso, modalidade): |" << endl
+        	 << "| Digite os novos dados do jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
         	 << "_____________________________________________" << endl;
-        cout << " Nome: "; cin.getline(lista[indiceeditarLista].nome, 40); // Lê o novo nome
-        cout << " Idade: "; cin >> lista[indiceeditarLista].idade; cin.ignore(); // Lê a nova idade
-        cout << " Nacionalidade: "; cin.getline(lista[indiceeditarLista].nacionalidade, 30); // Lê a nova nacionalidade
-        cout << " Altura: "; cin >> lista[indiceeditarLista].altura; // Lê a nova altura
-        cout << " Peso: "; cin >> lista[indiceeditarLista].peso; cin.ignore(); // Lê o novo peso
-        cout << " Modalidade: "; cin.getline(lista[indiceeditarLista].modalidade, 30); // Lê a nova modalidade
+        cout << " Nome: "; cin.getline(lista[indiceeditarLista].nome, 40);                         // Lê osnovos dados do atleta alterado
+        cout << " Idade: "; cin >> lista[indiceeditarLista].idade; cin.ignore(); 
+        cout << " Nacionalidade: "; cin.getline(lista[indiceeditarLista].nacionalidade, 30); 
+        cout << " Altura: "; cin >> lista[indiceeditarLista].altura; 
+        cout << " Peso: "; cin >> lista[indiceeditarLista].peso; cin.ignore(); 
+        cout << " Modalidade: "; cin.getline(lista[indiceeditarLista].modalidade, 30); 
         cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl
         	 << " ______________________________ " << endl
              << "| Dados alterados com sucesso! |" << endl
@@ -428,11 +432,11 @@ void editarLista(sportlist*& lista, int& numRegistros){
 void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
     limparTela(); 
     cout << " ____________________ " << endl
-    	 << "| Alteracao na lista |" << endl
+    	 << "| Alteração na lista |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
-    	 << " ____________________________________________________________________________________________________ " << endl
-    	 << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar e 4 para voltar ao menu: |" << endl
-    	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    	 << " ____________________________________________________________________________ " << endl
+    	 << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar: |" << endl
+    	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     int opcaoescolherAlteracao;
     cin >> opcaoescolherAlteracao; // Lê a opção do usuário
     cin.ignore(); // Limpa o buffer
@@ -443,8 +447,6 @@ void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
         excluirLista(lista, numRegistros);
     } else if (opcaoescolherAlteracao == 3) { // Adicionar novo jogador
         adicionarLista(lista, numRegistros, capacidade);
-    } else if(opcaoescolherAlteracao == 4) { // Pergunta se quer voltar ao menu principal
-        return; // Sai da função
     } else { // Se a opção for inválida
         displaydeOpcaoInvalida();
     }
@@ -454,10 +456,10 @@ void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
 void exportarArquivo(sportlist* lista, int numRegistros) {
     limparTela();
     cout << " _______________________ " << endl
-    	 << "| Exportacao de Arquivo |" << endl
+    	 << "| Exportação de Arquivo |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
     	 << " ______________________________________ " << endl
-    	 << "| Digite 1 para CSV ou 2 para binario: |" << endl	
+    	 << "| Digite 1 para CSV ou 2 para binário: |" << endl	
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     int opcaoexportarArquivo;
     cin >> opcaoexportarArquivo; // Lê a opção do usuário
@@ -465,7 +467,7 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
     if (opcaoexportarArquivo == 1) { // Exportar como CSV
         string nomeArquivoexportarArquivo;
         cout << " _____________________________________________________________ " << endl
-        	 << "| Digite o nome do arquivo de exportacao (com extensao .csv): |" << endl
+        	 << "| Digite o nome do arquivo de exportação (com extensão .csv): |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin >> nomeArquivoexportarArquivo; // Lê o nome do arquivo
         ofstream saida(nomeArquivoexportarArquivo); // Abre o arquivo para escrita
@@ -478,17 +480,17 @@ void exportarArquivo(sportlist* lista, int numRegistros) {
         cout << " _____________________________ " << endl
         	 << "| Arquivo exportado como CSV! |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-    } else if (opcaoexportarArquivo == 2) { // Exportar como binário
-        string nomeArquivoexportarArquivo;
+    } else if (opcaoexportarArquivo == 2) { // Exportar como binário igual de cima so que escreve em binário
+        string nomeArquivoexportarArquivo; 
         cout << " _____________________________________________________________ " << endl
-        	 << "| Digite o nome do arquivo de exportacao (com extensao .dat): |" << endl
+        	 << "| Digite o nome do arquivo de exportação (com extensão .dat): |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-        cin >> nomeArquivoexportarArquivo; // Lê o nome do arquivo
-        ofstream saida(nomeArquivoexportarArquivo, ios::binary); // Abre o arquivo para escrita em binário
-        saida.write((char*)lista, numRegistros * sizeof(sportlist)); // Escreve os dados
-        saida.close(); // Fecha o arquivo
+        cin >> nomeArquivoexportarArquivo;
+        ofstream saida(nomeArquivoexportarArquivo, ios::binary); 
+        saida.write((char*)lista, numRegistros * sizeof(sportlist)); 
+        saida.close(); 
         cout << " _________________________________ " << endl
-        	 << "| Arquivo exportado como binario! |" << endl
+        	 << "| Arquivo exportado como binário! |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else { // Se a opção for inválida
         displaydeOpcaoInvalida();
@@ -526,8 +528,7 @@ bool escolherTipo(sportlist* lista, int numRegistros) {
 
 // Função para visualizar o arquivo todo por tipo de ordenação
 void vizualizarPorOrde(sportlist* lista, int numRegistros) {
-    if (escolherTipo(lista, numRegistros)){
-    // Imprime a lista ordenada
+    if (escolherTipo(lista, numRegistros)){ // Verifica se teve escolha de tipo
     imprimeOrdenado(lista, numRegistros); // Chama a função para imprimir a lista ordenada
 	}
 }
@@ -547,16 +548,16 @@ void visualizarIntervalo(sportlist* lista, int numRegistros) {
 		cin >> fim; // Lê o índice final
 
 		// Verifica se o intervalo é válido
-		if (inicio < 0 || fim >= numRegistros || inicio > fim) {
+		if (inicio < 0 || fim >= numRegistros || inicio > fim) { 
 			cout << " _____________________ " << endl
-				 << "| Intervalo inválido! |" << endl // Mensagem de erro para intervalo inválido
+				 << "| Intervalo inválido! |" << endl 
 				 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-			return; // Sai da função
+			return; 
 		}
 
-		// Imprime os dados dos atletas no intervalo especificado
+		// Se for imprime os dados dos atletas no intervalo especificado
 		for (int i = inicio; i <= fim; i++) {
-			lista[i].imprime(); // Imprime os dados do jogador
+			lista[i].imprime(); 
 		}
 	}
 }
@@ -586,23 +587,23 @@ void salvarDados(const string& nomeArquivo, sportlist* lista, int numRegistros) 
         	 << "| Dados salvos como CSV com sucesso! |" << endl 
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else if (nomeArquivo.find(".dat") != string::npos) {
-        // Se o arquivo for binário, abre o arquivo para escrita em binário
+        // Se o arquivo for binário, abre o arquivo para escrita em binário e faz igual em cima so para binário
         ofstream saida(nomeArquivo, ios::binary | ios::trunc);
-        if (!saida) { // Verifica se o arquivo foi aberto corretamente
+        if (!saida) { 
             cout << " _____________________________________ " << endl
             	 << "| Erro ao salvar os dados no arquivo! |" << endl 
             	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
-            return; // Sai da função
+            return; 
         }
-        for (int i = 0; i < numRegistros; i++) { // Percorre a lista
-            saida.write((char*)&lista[i], sizeof(sportlist)); // Escreve os dados no arquivo
+        for (int i = 0; i < numRegistros; i++) { 
+            saida.write((char*)&lista[i], sizeof(sportlist)); // Escreve os dados no arquivo de foram binária
         }
         cout << " ________________________________________ " << endl
         	 << "| Dados salvos como binário com sucesso! |" << endl 
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     } else {
         cout << " _____________________________________ " << endl
-        	 << "| Erro: Extensao de arquivo invalida! |" << endl 
+        	 << "| Erro: Extensão de arquivo inválida! |" << endl 
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     }
 }
@@ -682,7 +683,7 @@ int main() {
 
     while (!arquivoAberto) { // Loop para abrir o arquivo
         cout << " ___________________________________________________________________________ " << endl
-        	 << "| Digite o nome do arquivo que deseja carregar (com extensao .csv ou .dat): |" << endl
+        	 << "| Digite o nome do arquivo que deseja carregar (com extensão .csv ou .dat): |" << endl
         	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
         cin >> nomeArquivo; // Lê o nome do arquivo
 
@@ -693,7 +694,7 @@ int main() {
         } else { // Se a leitura falhou
             limparTela(); 
             cout << " ____________________________________________________________________________________________________________ " << endl
-            	 << "| Nao foi possivel abrir o arquivo especificado. Certifique-se de que o nome esta correto e tente novamente. |" << endl
+            	 << "| Não foi possível abrir o arquivo especificado. Certifique-se de que o nome esta correto e tente novamente. |" << endl
             	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
 
             char tentarNovamente; // Variável para tentar abrir outro arquivo
