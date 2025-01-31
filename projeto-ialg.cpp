@@ -409,20 +409,38 @@ void editarLista(sportlist*& lista, int& numRegistros){
     int indiceeditarLista = buscaBinariaFunction(lista, numRegistros, chaveeditarLista, true);
         
     if (indiceeditarLista != -1) { // Verifica se o nome corresponde à chave
-        cout << " __________________________________________________________________________________________ " << endl
-        	 << "| Digite os novos dados do jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
-        	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
-        	 << "_____________________________________________" << endl;
-        cout << " Nome: "; cin.getline(lista[indiceeditarLista].nome, 40);                         // Lê osnovos dados do atleta alterado
-        cout << " Idade: "; cin >> lista[indiceeditarLista].idade; cin.ignore(); 
-        cout << " Nacionalidade: "; cin.getline(lista[indiceeditarLista].nacionalidade, 30); 
-        cout << " Altura: "; cin >> lista[indiceeditarLista].altura; 
-        cout << " Peso: "; cin >> lista[indiceeditarLista].peso; cin.ignore(); 
-        cout << " Modalidade: "; cin.getline(lista[indiceeditarLista].modalidade, 30); 
-        cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl
-        	 << " ______________________________ " << endl
-             << "| Dados alterados com sucesso! |" << endl
-             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;           
+        char confirmacaoeditarLista;
+        cout << " _____________________ " << endl
+             << "| Jogador encontrado: |" << endl
+             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+            lista[indiceeditarLista].imprime();
+        cout << " ________________________________________ " << endl
+             << "| Você realmente deseja editá-lo? (s/n): |" << endl
+             << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        cin >> confirmacaoeditarLista;
+        cin.ignore();
+
+        if (confirmacaoeditarLista == 's' || confirmacaoeditarLista == 'S') { // Se confirmado
+            limparTela();
+            cout << " __________________________________________________________________________________________ " << endl
+                << "| Digite os novos dados do jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
+                << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
+                << "_____________________________________________" << endl;
+            cout << " Nome: "; cin.getline(lista[indiceeditarLista].nome, 40);                         // Lê osnovos dados do atleta alterado
+            cout << " Idade: "; cin >> lista[indiceeditarLista].idade; cin.ignore(); 
+            cout << " Nacionalidade: "; cin.getline(lista[indiceeditarLista].nacionalidade, 30); 
+            cout << " Altura: "; cin >> lista[indiceeditarLista].altura; 
+            cout << " Peso: "; cin >> lista[indiceeditarLista].peso; cin.ignore(); 
+            cout << " Modalidade: "; cin.getline(lista[indiceeditarLista].modalidade, 30); 
+            cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl
+                << " ______________________________ " << endl
+                << "| Dados alterados com sucesso! |" << endl
+                << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;      
+        } else { // Se não confirmado
+            cout << " ___________________ " << endl
+                 << "| Edição cancelada. |" << endl
+                 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+        }     
     } else {
         displayJogadorNaoEncontrado();
     }
@@ -434,9 +452,9 @@ void escolherAlteracao(sportlist*& lista, int& numRegistros, int& capacidade) {
     cout << " ____________________ " << endl
     	 << "| Alteração na lista |" << endl
     	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
-    	 << " ____________________________________________________________________________ " << endl
-    	 << "| Digite 1 para alterar por nome, 2 para excluir por nome, 3 para adicionar: |" << endl
-    	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
+    	 << " ___________________________________________________________________________ " << endl
+    	 << "| Digite 1 para editar por nome, 2 para excluir por nome, 3 para adicionar: |" << endl
+    	 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;
     int opcaoescolherAlteracao;
     cin >> opcaoescolherAlteracao; // Lê a opção do usuário
     cin.ignore(); // Limpa o buffer
