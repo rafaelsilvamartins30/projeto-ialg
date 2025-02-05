@@ -25,7 +25,7 @@ O projeto está organizado da seguinte forma:
     - **Nome.**
     - **Idade.**
   - **Alteração na lista**:
-    - **Editar um atletaa.**
+    - **Editar um atleta.**
     - **Excluir um atleta.**
     - **Adicionar um atleta.**
   - **Exportar arquivo, escolhendo o nome e o formato**:
