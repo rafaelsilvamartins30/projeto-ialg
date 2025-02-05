@@ -423,9 +423,9 @@ void editarLista(sportlist*& lista, int& numRegistros){
         if (confirmacaoeditarLista == 's' || confirmacaoeditarLista == 'S') { // Se confirmado
             limparTela();
             cout << " __________________________________________________________________________________________ " << endl
-                << "| Digite os novos dados do jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
-                << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
-                << "_____________________________________________" << endl;
+                 << "| Digite os novos dados do jogador (Nome, Idade, Nacionalidade, Altura, Peso, Modalidade): |" << endl
+                 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl
+                 << "_____________________________________________" << endl;
             cout << " Nome: "; cin.getline(lista[indiceeditarLista].nome, 40);                         // Lê osnovos dados do atleta alterado
             cout << " Idade: "; cin >> lista[indiceeditarLista].idade; cin.ignore(); 
             cout << " Nacionalidade: "; cin.getline(lista[indiceeditarLista].nacionalidade, 30); 
@@ -433,9 +433,9 @@ void editarLista(sportlist*& lista, int& numRegistros){
             cout << " Peso: "; cin >> lista[indiceeditarLista].peso; cin.ignore(); 
             cout << " Modalidade: "; cin.getline(lista[indiceeditarLista].modalidade, 30); 
             cout << "‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾" << endl
-                << " ______________________________ " << endl
-                << "| Dados alterados com sucesso! |" << endl
-                << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;      
+                 << " ______________________________ " << endl
+                 << "| Dados alterados com sucesso! |" << endl
+                 << " ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾ " << endl;      
         } else { // Se não confirmado
             cout << " ___________________ " << endl
                  << "| Edição cancelada. |" << endl
